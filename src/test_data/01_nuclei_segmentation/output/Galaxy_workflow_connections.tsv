@@ -1,0 +1,8 @@
+Source Step ID	Source Output Name	Destination Step ID	Destination Input Name
+0	output	1	input_file
+1	output	2	input
+2	output	3	input
+3	output	4	input
+4	output	5	input
+5	output	6	input_label
+0	output	6	use_raw_option|input_raw

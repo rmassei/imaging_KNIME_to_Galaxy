@@ -1,0 +1,8 @@
+	Node Number	Node Name
+0	1	Image Reader (#1)
+1	2	Splitter (#2)
+2	3	Gaussian Convolution (#3)
+3	4	CLAHE (#4)
+4	5	Global Thresholder (#5)
+5	6	Connected Component Analysis (#6)
+6	7	Image Features (#7)
