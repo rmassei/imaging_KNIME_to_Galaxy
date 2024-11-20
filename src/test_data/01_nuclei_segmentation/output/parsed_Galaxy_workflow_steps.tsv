@@ -1,0 +1,8 @@
+Step ID	Label	Name	Tool ID	Type	UUID
+0	Input Image Dataset	Input dataset		data_input	312178b3-3fac-49ab-95cf-29e3f44e6015
+1	Extract Channel	Convert image format	toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3	tool	a3bc5484-795c-461b-85de-0a47278a94b4
+2		Filter 2-D image	toolshed.g2.bx.psu.edu/repos/imgteam/2d_simple_filter/ip_filter_standard/1.12.0+galaxy1	tool	efeb4c9c-cefa-4750-969b-c23d93f1b223
+3		Perform histogram equalization	toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0	tool	6969f588-0341-4964-b396-a6d549970f5b
+4		Threshold image	toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3	tool	3fa4e60e-bb57-4623-b2d6-bd49fbb06678
+5		Convert binary image to label map	toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0	tool	4483a3d7-6f28-4814-adfc-ce6a787477e7
+6		Extract image features	toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0	tool	037f8425-2c6c-4fea-8296-b5b6fb6d6479
