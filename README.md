@@ -58,5 +58,3 @@ The translation table will be saved in `src/translation_table`
 - Maintain consistent naming conventions for folders and files
 - Verify that the workflows are functional and the tools/nodes are or partially are equivalent
 
-## IMPORTANT!
-### KNIME nodes must be included sequentially! The order in which they appear in the workflow does not matter; what matters is the order in which the user adds them to the workflow.
