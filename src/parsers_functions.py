@@ -23,14 +23,38 @@ def parse_knime_xml(xml_data, output_path):
     namespace = {'ns': 'http://www.knime.org/2008/09/XMLConfig'}
 
     nodes = []
-    for node in root.findall(".//ns:config[@key='nodes']/ns:config", namespace):
+    connections = {}
+
+    # First, parse the connections to determine the sequence of nodes
+    for connection in root.findall(".//ns:config[@key='connections']/ns:config", namespace):
+        source_id = connection.find(".//ns:entry[@key='sourceID']", namespace).get('value')
+        dest_id = connection.find(".//ns:entry[@key='destID']", namespace).get('value')
+        connections[int(source_id)] = int(dest_id)
+
+    # Then, parse the nodes and add them to the list in the correct order
+    node_ids = list(connections.keys())
+    node_ids.sort()
+
+    current_node = node_ids[0]
+    while current_node in connections:
+        node = root.find(f".//ns:config[@key='nodes']/ns:config/ns:entry[@key='id' and @value='{current_node}']", namespace).getparent()
         node_id = node.find(".//ns:entry[@key='id']", namespace).get('value')
         node_settings_file = node.find(".//ns:entry[@key='node_settings_file']", namespace).get('value')
         node_name = node_settings_file.split('/')[0].strip()
         nodes.append({"Node Number": node_id, "Node Name": node_name})
 
+        current_node = connections[current_node]
+
+    # Add the last node in the sequence
+    node = root.find(f".//ns:config[@key='nodes']/ns:config/ns:entry[@key='id' and @value='{current_node}']", namespace).getparent()
+    node_id = node.find(".//ns:entry[@key='id']", namespace).get('value')
+    node_settings_file = node.find(".//ns:entry[@key='node_settings_file']", namespace).get('value')
+    node_name = node_settings_file.split('/')[0].strip()
+    nodes.append({"Node Number": node_id, "Node Name": node_name})
+
     df = pd.DataFrame(nodes)
-    df.to_csv(f"{output_path}/parsed_KNIME_nodes.tsv", sep="\t")
+    df.to_csv(f"{output_path}/parsed_KNIME_nodes.tsv", sep="\t", index=False)
+
 
 
 ## GALAXY PARSERS
