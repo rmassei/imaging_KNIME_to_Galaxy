@@ -3,12 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TSV Viewer</title>
+  <title>Interactive TSV Viewer</title>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
   <h1>TSV Viewer</h1>
-  <table id="tsvTable" class="display" style="width:100%"></table>
+  <p>Interactive table generated from the TSV file.</p>
+  <table id="tsvTable" class="display"></table>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -20,11 +38,13 @@
         .then(response => response.text())
         .then(tsvText => {
           const rows = tsvText.trim().split('\n').map(line => line.split('\t'));
-          const headers = rows.shift();
+          const headers = rows.shift(); // Extract column headers
 
           $('#tsvTable').DataTable({
             data: rows,
-            columns: headers.map(header => ({ title: header }))
+            columns: headers.map(header => ({ title: header.trim() })),
+            autoWidth: true, // Automatically adjusts column width
+            responsive: true // Makes the table responsive
           });
         })
         .catch(error => console.error('Error loading TSV file:', error));
