@@ -32,7 +32,7 @@
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function() {
-      const tsvUrl = '/imaging_KNIME_to_Galaxy/src/translation_table/01_nuclei_segmentation/translation_table.tsv';
+      const tsvUrl = 'src/translation_table/01_nuclei_segmentation/translation_table.tsv';
       
       fetch(tsvUrl)
         .then(response => response.text())
