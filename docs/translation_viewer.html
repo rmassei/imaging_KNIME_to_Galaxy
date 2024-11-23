@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSV Viewer</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+</head>
+<body>
+  <h1>TSV Viewer</h1>
+  <table id="tsvTable" class="display" style="width:100%"></table>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const tsvUrl = './src/translation_table/01_nuclei_segmentation/translation_table.tsv';
+      
+      fetch(tsvUrl)
+        .then(response => response.text())
+        .then(tsvText => {
+          const rows = tsvText.trim().split('\n').map(line => line.split('\t'));
+          const headers = rows.shift();
+
+          $('#tsvTable').DataTable({
+            data: rows,
+            columns: headers.map(header => ({ title: header }))
+          });
+        })
+        .catch(error => console.error('Error loading TSV file:', error));
+    });
+  </script>
+</body>
+</html>
