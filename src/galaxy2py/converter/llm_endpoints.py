@@ -88,7 +88,7 @@ def prompt_github_models(message:str, model="gpt-4.1"):
     # setup connection to the LLM
     client = openai.OpenAI(
         base_url = "https://models.inference.ai.azure.com/",
-        #api_key = os.environ.get("GH_MODELS_API_KEY") # potentially enter a different key from your environment
+        api_key = os.environ.get("GITHUB_MODELS_API_KEY") 
     )
     response = client.chat.completions.create(
         model=model,
