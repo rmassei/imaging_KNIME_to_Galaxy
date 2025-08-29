@@ -4,11 +4,13 @@ All seven workflows were manually translated from KNIME to Galaxy and
 
 
 ## General overview on the imaging workflows
-- KNWF: Exported workflow from KNIME (kind of zipped file containing metadata and general description of the workflow
-- .ga: Exported worflow from Galaxy
 
+**KNWF:** Exported workflow from KNIME (kind of zipped file containing metadata and general description of the workflow
+
+**.ga:** Exported worflow from Galaxy
 
     - 2025_01_resize_rotate.knwf/.ga
+  
 Image rescaling (50%) plus different rotation. In KNIME, just 90 degrees right while in Galaxy
 six different rotations were included
 
