@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+    <entry key="node_file" type="xstring" value="settings.xml"/>
+    <config key="flow_stack"/>
+    <config key="internal_node_subsettings">
+        <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+    </config>
+    <config key="model">
+        <config key="column_creation_mode_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="column_creation_mode" type="xstring" value="New Table"/>
+        <config key="column_suffix_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="column_suffix" type="xstring" value=""/>
+        <config key="column_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="column_selection">
+            <config key="InclList">
+                <entry key="array-size" type="xint" value="0"/>
+            </config>
+            <config key="ExclList">
+                <entry key="array-size" type="xint" value="0"/>
+            </config>
+            <entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+        </config>
+        <config key="nrctxregions_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="nrctxregions" type="xint" value="8"/>
+        <config key="nrbins_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="nrbins" type="xint" value="256"/>
+        <config key="slope_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_double"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="slope" type="xdouble" value="3.0"/>
+        <config key="dim_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="dim_selection">
+            <entry key="array-size" type="xint" value="2"/>
+            <entry key="0" type="xstring" value="X"/>
+            <entry key="1" type="xstring" value="Y"/>
+        </config>
+    </config>
+    <entry key="customDescription" type="xstring" isnull="true" value=""/>
+    <entry key="state" type="xstring" value="IDLE"/>
+    <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.proc.clahe.ClaheNodeFactory"/>
+    <entry key="node-name" type="xstring" value="CLAHE"/>
+    <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+    <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+    <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+    <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+    <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+    <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+    <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+    <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+    <config key="factory_settings"/>
+    <entry key="name" type="xstring" value="CLAHE"/>
+    <entry key="hasContent" type="xboolean" value="false"/>
+    <entry key="isInactive" type="xboolean" value="false"/>
+    <config key="ports">
+        <config key="port_1">
+            <entry key="index" type="xint" value="1"/>
+            <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+    <config key="filestores">
+        <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+        <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+    </config>
+</config>
