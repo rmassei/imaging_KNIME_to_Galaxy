@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+    <entry key="node_file" type="xstring" value="settings.xml"/>
+    <config key="flow_stack"/>
+    <config key="internal_node_subsettings">
+        <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+    </config>
+    <config key="model">
+        <config key="haralick_greylevel_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="haralick_greylevel" type="xint" value="40"/>
+        <config key="haralick_cooc_mtx_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="haralick_cooc_mtx_selection">
+            <entry key="array-size" type="xint" value="4"/>
+            <entry key="0" type="xstring" value="DIAGONAL"/>
+            <entry key="1" type="xstring" value="ANTIDIAGONAL"/>
+            <entry key="2" type="xstring" value="HORIZONTAL"/>
+            <entry key="3" type="xstring" value="VERTICAL"/>
+        </config>
+        <config key="haralick_distance_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="haralick_distance" type="xint" value="1"/>
+        <config key="haralick_texture_feature_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="haralick_texture_feature_selection">
+            <entry key="array-size" type="xint" value="15"/>
+            <entry key="0" type="xstring" value="ASM"/>
+            <entry key="1" type="xstring" value="Contrast"/>
+            <entry key="2" type="xstring" value="Correlation"/>
+            <entry key="3" type="xstring" value="Variance"/>
+            <entry key="4" type="xstring" value="IFDM"/>
+            <entry key="5" type="xstring" value="SumAverage"/>
+            <entry key="6" type="xstring" value="SumVariance"/>
+            <entry key="7" type="xstring" value="SumEntropy"/>
+            <entry key="8" type="xstring" value="Entropy"/>
+            <entry key="9" type="xstring" value="DifferenceVariance"/>
+            <entry key="10" type="xstring" value="DifferenceEntropy"/>
+            <entry key="11" type="xstring" value="ICM1"/>
+            <entry key="12" type="xstring" value="ICM2"/>
+            <entry key="13" type="xstring" value="ClusterShade"/>
+            <entry key="14" type="xstring" value="ClusterProminence"/>
+        </config>
+        <config key="CFG_AVERGAGE_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="CFG_AVERGAGE" type="xboolean" value="false"/>
+        <config key="append_histogram_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="append_histogram" type="xboolean" value="false"/>
+        <config key="fos_feature_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="fos_feature_selection">
+            <entry key="array-size" type="xint" value="20"/>
+            <entry key="0" type="xstring" value="Min"/>
+            <entry key="1" type="xstring" value="Max"/>
+            <entry key="2" type="xstring" value="Mean"/>
+            <entry key="3" type="xstring" value="Geometric Mean"/>
+            <entry key="4" type="xstring" value="Sum"/>
+            <entry key="5" type="xstring" value="Squares of Sum"/>
+            <entry key="6" type="xstring" value="Std Dev"/>
+            <entry key="7" type="xstring" value="Variance"/>
+            <entry key="8" type="xstring" value="Skewness"/>
+            <entry key="9" type="xstring" value="Kurtosis"/>
+            <entry key="10" type="xstring" value="Quantil 25"/>
+            <entry key="11" type="xstring" value="Quantil 50"/>
+            <entry key="12" type="xstring" value="Quantil 75"/>
+            <entry key="13" type="xstring" value="Median absolute deviation (MAD)"/>
+            <entry key="14" type="xstring" value="WeightedCentroid Dim 1"/>
+            <entry key="15" type="xstring" value="WeightedCentroid Dim 2"/>
+            <entry key="16" type="xstring" value="WeightedCentroid Dim 3"/>
+            <entry key="17" type="xstring" value="WeightedCentroid Dim 4"/>
+            <entry key="18" type="xstring" value="WeightedCentroid Dim 5"/>
+            <entry key="19" type="xstring" value="Mass Displacement"/>
+        </config>
+        <config key="histogram_bins_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="histogram_bins" type="xint" value="64"/>
+        <config key="percentiles_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="percentiles" type="xstring" value=""/>
+        <config key="tamura_texture_feature_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="tamura_texture_feature_selection">
+            <entry key="array-size" type="xint" value="6"/>
+            <entry key="0" type="xstring" value="TamuraGranularity"/>
+            <entry key="1" type="xstring" value="TamuraContrast"/>
+            <entry key="2" type="xstring" value="TamuraKurtosisOfDirectionality"/>
+            <entry key="3" type="xstring" value="TamuraStdDevDirectionality"/>
+            <entry key="4" type="xstring" value="TamuraMaxDirectionality"/>
+            <entry key="5" type="xstring" value="TamuraSkewness"/>
+        </config>
+        <config key="active_feature_sets_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <config key="active_feature_sets">
+            <entry key="array-size" type="xint" value="0"/>
+        </config>
+        <config key="img_column_selection_Internals">
+            <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+            <entry key="EnabledStatus" type="xboolean" value="true"/>
+        </config>
+        <entry key="img_column_selection" type="xstring" value=""/>
+    </config>
+    <entry key="customDescription" type="xstring" isnull="true" value=""/>
+    <entry key="state" type="xstring" value="IDLE"/>
+    <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.features.ImgFeatureSetNodeFactory"/>
+    <entry key="node-name" type="xstring" value="Image Features"/>
+    <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+    <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+    <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+    <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+    <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+    <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+    <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+    <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+    <config key="factory_settings"/>
+    <entry key="name" type="xstring" value="Image Features"/>
+    <entry key="hasContent" type="xboolean" value="false"/>
+    <entry key="isInactive" type="xboolean" value="false"/>
+    <config key="ports">
+        <config key="port_1">
+            <entry key="index" type="xint" value="1"/>
+            <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+    <config key="filestores">
+        <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+        <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+    </config>
+</config>
