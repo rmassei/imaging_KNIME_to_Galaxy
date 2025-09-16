@@ -1,2 +1,0 @@
-from skimage import measure
-label_image = measure.label(binary_image, connectivity=2)
