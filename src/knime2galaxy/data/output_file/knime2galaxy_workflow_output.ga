@@ -5,14 +5,17 @@
   "creator": [
     {
       "class": "Person",
-      "identifier": "",
+      "identifier": "0000-0000-0000-0000",
       "name": "Riccardo"
     }
   ],
   "format-version": "0.1",
   "license": "MIT",
-  "name": "knime_to_galaxy_workflow",
-  "readme": "Converted from KNIME workflow.",
+  "name": "knime_to_galaxy",
+  "readme": "Converted KNIME workflow to Galaxy workflow.",
+  "report": {
+    "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
+  },
   "steps": {
     "0": {
       "annotation": "",
@@ -22,18 +25,17 @@
       "input_connections": {},
       "inputs": [],
       "label": null,
-      "name": "Input dataset",
+      "name": "Input Image Dataset",
       "outputs": [],
       "position": {
         "left": 0.0,
         "top": 0.0
       },
-      "post_job_actions": {},
       "tool_id": null,
       "tool_state": "{\"optional\": false, \"tag\": null}",
       "tool_version": null,
       "type": "data_input",
-      "uuid": "4a0d3cdf-5eb3-40e3-92cc-283f6273a956",
+      "uuid": "06335d29-033a-4ce2-95db-ae51cf4fddaa",
       "when": null,
       "workflow_outputs": []
     },
@@ -50,7 +52,7 @@
       },
       "inputs": [],
       "label": null,
-      "name": "Extract Channel",
+      "name": "Convert image format",
       "outputs": [
         {
           "name": "output",
@@ -58,7 +60,7 @@
         }
       ],
       "position": {
-        "left": 200.0,
+        "left": 300.0,
         "top": 0.0
       },
       "post_job_actions": {},
@@ -72,55 +74,46 @@
       "tool_state": "{\"bigtiff\": false, \"channel_options\": {\"extract\": \"True\", \"__current_case__\": 1, \"channel\": \"0\"}, \"compression\": \"False\", \"crop_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"input_file\": {\"__class__\": \"ConnectedValue\"}, \"noflat\": true, \"out_format\": \"tiff\", \"pyramid_options\": {\"generate\": \"False\", \"__current_case__\": 1}, \"range_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"series_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"tile_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"timepoint_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"z_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
       "tool_version": "6.7.0+galaxy3",
       "type": "tool",
-      "uuid": "20d6594d-85fd-4a77-a2da-651024f787da",
+      "uuid": "533b7bf1-cb86-496b-ae67-3c9fb65b7462",
       "when": null,
       "workflow_outputs": []
     },
     "2": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
       "errors": null,
       "id": 2,
       "input_connections": {
-        "input_label": {
+        "input": {
           "id": 1,
-          "output_name": "output"
-        },
-        "use_raw_option|input_raw": {
-          "id": 0,
           "output_name": "output"
         }
       },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Extract image features",
-          "name": "use_raw_option"
-        }
-      ],
+      "inputs": [],
       "label": null,
-      "name": "Extract image features",
+      "name": "Convert image format",
       "outputs": [
         {
-          "name": "measurement_table",
-          "type": "tabular"
+          "name": "output",
+          "type": "tiff"
         }
       ],
       "position": {
-        "left": 400.0,
+        "left": 600.0,
         "top": 0.0
       },
       "post_job_actions": {},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
       "tool_shed_repository": {
-        "changeset_revision": "5bc8cdc17fd0",
-        "name": "2d_feature_extraction",
+        "changeset_revision": "fcadded98e61",
+        "name": "bfconvert",
         "owner": "imgteam",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"feature_options\": {\"features\": \"select\", \"__current_case__\": 1, \"selected_features\": [\"--label\", \"--max_intensity\", \"--mean_intensity\", \"--area\", \"--perimeter\", \"--eccentricity\", \"--major_axis_length\", \"--minor_axis_length\"]}, \"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
-      "tool_version": "0.18.1+galaxy0",
+      "tool_state": "{\"bigtiff\": false, \"channel_options\": {\"extract\": \"True\", \"__current_case__\": 1, \"channel\": \"0\"}, \"compression\": \"False\", \"crop_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"input\": {\"__class__\": \"ConnectedValue\"}, \"noflat\": true, \"out_format\": \"tiff\", \"pyramid_options\": {\"generate\": \"False\", \"__current_case__\": 1}, \"range_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"series_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"tile_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"timepoint_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"z_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "6.7.0+galaxy3",
       "type": "tool",
-      "uuid": "e301ef5e-6851-443d-8035-d67a9bcfdccf",
+      "uuid": "c2d04fc2-71cf-4db1-9b05-92f6ccaf521d",
       "when": null,
       "workflow_outputs": []
     },
@@ -145,7 +138,7 @@
         }
       ],
       "position": {
-        "left": 600.0,
+        "left": 900.0,
         "top": 0.0
       },
       "post_job_actions": {},
@@ -159,7 +152,7 @@
       "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
       "tool_version": "0.18.1+galaxy0",
       "type": "tool",
-      "uuid": "f36d5163-9b16-476b-9969-83d7ea55eac4",
+      "uuid": "62a8fd8e-c44e-4e48-902b-823650d4d615",
       "when": null,
       "workflow_outputs": []
     },
@@ -184,7 +177,7 @@
         }
       ],
       "position": {
-        "left": 800.0,
+        "left": 1200.0,
         "top": 0.0
       },
       "post_job_actions": {},
@@ -198,7 +191,7 @@
       "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"invert_output\": false, \"th_method\": {\"method_id\": \"otsu\", \"__current_case__\": 1, \"threshold\": \"0\", \"block_size\": \"0\", \"offset\": \"0.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
       "tool_version": "0.18.1+galaxy3",
       "type": "tool",
-      "uuid": "be93e6c9-3f02-4c52-a6fd-87156c7270ab",
+      "uuid": "c16dc7cd-a179-4526-840b-d38052d0d0d7",
       "when": null,
       "workflow_outputs": []
     },
@@ -223,7 +216,7 @@
         }
       ],
       "position": {
-        "left": 1000.0,
+        "left": 1500.0,
         "top": 0.0
       },
       "post_job_actions": {},
@@ -237,7 +230,7 @@
       "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"mode\": {\"mode_selector\": \"cca\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
       "tool_version": "0.5+galaxy0",
       "type": "tool",
-      "uuid": "00940301-2aed-4ac9-b9cc-70a6e994bf23",
+      "uuid": "04c5ffd5-91fb-427c-a41a-adf6e3281e27",
       "when": null,
       "workflow_outputs": []
     },
@@ -250,10 +243,6 @@
         "input_label": {
           "id": 5,
           "output_name": "label_image"
-        },
-        "use_raw_option|input_raw": {
-          "id": 0,
-          "output_name": "output"
         }
       },
       "inputs": [
@@ -271,7 +260,7 @@
         }
       ],
       "position": {
-        "left": 1200.0,
+        "left": 1800.0,
         "top": 0.0
       },
       "post_job_actions": {},
@@ -285,12 +274,16 @@
       "tool_state": "{\"feature_options\": {\"features\": \"select\", \"__current_case__\": 1, \"selected_features\": [\"--label\", \"--max_intensity\", \"--mean_intensity\", \"--area\", \"--perimeter\", \"--eccentricity\", \"--major_axis_length\", \"--minor_axis_length\"]}, \"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
       "tool_version": "0.18.1+galaxy0",
       "type": "tool",
-      "uuid": "3a480827-b75b-46e5-bca1-1bb805f6b0be",
+      "uuid": "3e68a8b2-beb8-4f1c-bca0-fa318e3f1f95",
       "when": null,
       "workflow_outputs": []
     }
   },
-  "tags": [],
-  "uuid": "b40f82af-00b9-42db-a2ee-2547c2fc6937",
+  "tags": [
+    "bioimaging",
+    "preprocessing",
+    "KNIMEtoGalaxy"
+  ],
+  "uuid": "55fdd499-6736-4470-abfc-16d99db7d6ff",
   "version": 0
 }
