@@ -1,11 +1,21 @@
-
-
 {
   "a_galaxy_workflow": "true",
   "annotation": "",
+  "comments": [],
+  "creator": [
+    {
+      "class": "Person",
+      "identifier": "0000-0000-0000-0000",
+      "name": "Riccardo"
+    }
+  ],
   "format-version": "0.1",
   "license": "MIT",
-  "name": "KNIME Imaging Workflow",
+  "name": "knime_to_galaxy_workflow",
+  "readme": "",
+  "report": {
+    "markdown": ""
+  },
   "steps": {
     "0": {
       "annotation": "",
@@ -13,100 +23,186 @@
       "errors": null,
       "id": 0,
       "input_connections": {},
-      "inputs": [{"description": "", "name": "Input Image Dataset"}],
-      "label": "Input Image Dataset",
+      "inputs": [],
+      "label": null,
       "name": "Input dataset",
       "outputs": [],
-      "position": {"left": 0, "top": 0},
+      "position": {
+        "left": 0.0,
+        "top": 0.0
+      },
       "tool_id": null,
       "tool_state": "{\"optional\": false, \"tag\": null}",
+      "tool_version": null,
       "type": "data_input",
-      "uuid": "312178b3-3fac-49ab-95cf-29e3f44e6015"
+      "uuid": "d3ff526b-c3dc-4bbb-997f-2d5009674860",
+      "when": null,
+      "workflow_outputs": []
     },
     "1": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/split_image/ip_split_image/0.1+galaxy0",
       "errors": null,
       "id": 1,
-      "input_connections": {"input_file": {"id": 0, "output_name": "output"}},
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
       "inputs": [],
-      "label": "Extract Channel",
-      "name": "Convert image format",
-      "outputs": [{"name": "output", "type": "tiff"}],
-      "position": {"left": 288.66, "top": 95.93},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
-      "tool_state": "{\"channel_options\": {\"extract\": \"True\", \"__current_case__\": 1, \"channel\": \"0\"}, \"input_file\": {\"__class__\": \"ConnectedValue\"}, \"out_format\": \"tiff\"}",
-      "tool_version": "6.7.0+galaxy3",
+      "label": null,
+      "name": "Split image",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 200.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/split_image/ip_split_image/0.1+galaxy0",
+      "tool_state": "{}",
+      "tool_version": "0.1+galaxy0",
       "type": "tool",
-      "uuid": "a3bc5484-795c-461b-85de-0a47278a94b4"
+      "uuid": "a1111111-1111-1111-1111-111111111111",
+      "when": null,
+      "workflow_outputs": []
     },
     "2": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_gaussian_filter/ip_gaussian/0.18.1+galaxy0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/gaussian_filter/ip_gaussian_filter/0.1+galaxy0",
       "errors": null,
       "id": 2,
-      "input_connections": {"input": {"id": 1, "output_name": "output"}},
+      "input_connections": {
+        "input": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
       "inputs": [],
-      "label": "Gaussian Blur",
-      "name": "Apply Gaussian filter",
-      "outputs": [{"name": "output", "type": "tiff"}],
-      "position": {"left": 488.66, "top": 95.93},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_gaussian_filter/ip_gaussian/0.18.1+galaxy0",
-      "tool_state": "{\"sigma\": \"2\", \"input\": {\"__class__\": \"ConnectedValue\"}}",
-      "tool_version": "0.18.1+galaxy0",
+      "label": null,
+      "name": "Gaussian filter",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 400.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/gaussian_filter/ip_gaussian_filter/0.1+galaxy0",
+      "tool_state": "{}",
+      "tool_version": "0.1+galaxy0",
       "type": "tool",
-      "uuid": "b2cd5484-795c-461b-85de-0a47278a94b5"
+      "uuid": "b2222222-2222-2222-2222-222222222222",
+      "when": null,
+      "workflow_outputs": []
     },
     "3": {
       "annotation": "",
       "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
       "errors": null,
       "id": 3,
-      "input_connections": {"input": {"id": 2, "output_name": "output"}},
+      "input_connections": {
+        "input": {
+          "id": 2,
+          "output_name": "output"
+        }
+      },
       "inputs": [],
-      "label": "CLAHE",
-      "name": "Histogram Equalization",
-      "outputs": [{"name": "output", "type": "tiff"}],
-      "position": {"left": 688.66, "top": 95.93},
+      "label": null,
+      "name": "Perform histogram equalization",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 600.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
       "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
-      "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"nr_bins\": \"256\", \"slope\": \"3.0\"}",
+      "tool_state": "{\"h_type\": \"clahe\"}",
       "tool_version": "0.18.1+galaxy0",
       "type": "tool",
-      "uuid": "6969f588-0341-4964-b396-a6d549970f5b"
+      "uuid": "c3333333-3333-3333-3333-333333333333",
+      "when": null,
+      "workflow_outputs": []
     },
     "4": {
       "annotation": "",
       "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
       "errors": null,
       "id": 4,
-      "input_connections": {"input": {"id": 3, "output_name": "output"}},
+      "input_connections": {
+        "input": {
+          "id": 3,
+          "output_name": "output"
+        }
+      },
       "inputs": [],
-      "label": "Threshold",
+      "label": null,
       "name": "Threshold image",
-      "outputs": [{"name": "output", "type": "tiff"}],
-      "position": {"left": 888.66, "top": 95.93},
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 800.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
       "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
-      "tool_state": "{\"th_method\": {\"method_id\": \"otsu\", \"__current_case__\": 1}, \"input\": {\"__class__\": \"ConnectedValue\"}}",
+      "tool_state": "{\"th_method\": {\"method_id\": \"otsu\"}}",
       "tool_version": "0.18.1+galaxy3",
       "type": "tool",
-      "uuid": "3fa4e60e-bb57-4623-b2d6-bd49fbb06678"
+      "uuid": "d4444444-4444-4444-4444-444444444444",
+      "when": null,
+      "workflow_outputs": []
     },
     "5": {
       "annotation": "",
       "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
       "errors": null,
       "id": 5,
-      "input_connections": {"binary_image": {"id": 4, "output_name": "output"}},
+      "input_connections": {
+        "binary_image": {
+          "id": 4,
+          "output_name": "output"
+        }
+      },
       "inputs": [],
-      "label": "Connected Components",
-      "name": "Binary to Label",
-      "outputs": [{"name": "label_image", "type": "tiff"}],
-      "position": {"left": 1088.66, "top": 95.93},
+      "label": null,
+      "name": "Convert binary image to label map",
+      "outputs": [
+        {
+          "name": "label_image",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 1000.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
       "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
-      "tool_state": "{\"mode\": {\"mode_selector\": \"cca\", \"__current_case__\": 0}, \"input\": {\"__class__\": \"ConnectedValue\"}}",
+      "tool_state": "{}",
       "tool_version": "0.5+galaxy0",
       "type": "tool",
-      "uuid": "4483a3d7-6f28-4814-adfc-ce6a787477e7"
+      "uuid": "e5555555-5555-5555-5555-555555555555",
+      "when": null,
+      "workflow_outputs": []
     },
     "6": {
       "annotation": "",
@@ -114,22 +210,41 @@
       "errors": null,
       "id": 6,
       "input_connections": {
-        "input_label": {"id": 5, "output_name": "label_image"},
-        "use_raw_option|input_raw": {"id": 3, "output_name": "output"}
+        "input_label": {
+          "id": 5,
+          "output_name": "label_image"
+        }
       },
-      "inputs": [{"description": "Feature extraction parameters", "name": "use_raw_option"}],
-      "label": "Feature Extraction",
-      "name": "Extract features",
-      "outputs": [{"name": "measurement_table", "type": "tabular"}],
-      "position": {"left": 1288.66, "top": 95.93},
+      "inputs": [],
+      "label": null,
+      "name": "Extract image features",
+      "outputs": [
+        {
+          "name": "measurement_table",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 1200.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
       "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
-      "tool_state": "{\"feature_options\": {\"features\": \"select\", \"__current_case__\": 1, \"selected_features\": [\"--label\", \"--area\", \"--perimeter\"]}}",
+      "tool_state": "{}",
       "tool_version": "0.18.1+galaxy0",
       "type": "tool",
-      "uuid": "037f8425-2c6c-4fea-8296-b5b6fb6d6479"
+      "uuid": "f6666666-6666-6666-6666-666666666666",
+      "when": null,
+      "workflow_outputs": [
+        {
+          "label": "measurement_table",
+          "output_name": "measurement_table",
+          "uuid": "f6666666-6666-6666-6666-666666666666"
+        }
+      ]
     }
   },
-  "tags": ["KNIME-converted", "Image Processing"],
-  "uuid": "9bd8457f-ff56-4846-b220-35c4d3474694",
+  "tags": [],
+  "uuid": "123e4567-e89b-12d3-a456-426614174000",
   "version": 0
 }
