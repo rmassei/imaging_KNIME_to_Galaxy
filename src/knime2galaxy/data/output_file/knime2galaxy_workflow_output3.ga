@@ -1,0 +1,163 @@
+{
+  "a_galaxy_workflow": "true",
+  "annotation": "",
+  "comments": [],
+  "creator": [
+    {
+      "class": "Person",
+      "identifier": "0000-0000-0000-0000-000000000000",
+      "name": "Unknown"
+    }
+  ],
+  "format-version": "0.1",
+  "license": "MIT",
+  "name": "simple_image_writer",
+  "readme": "",
+  "report": {
+    "markdown": ""
+  },
+  "steps": {
+    "0": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 0,
+      "input_connections": {},
+      "inputs": [],
+      "label": null,
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 0.0,
+        "top": 0.0
+      },
+      "tool_id": null,
+      "tool_state": "{\"optional\": false, \"tag\": null}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "1d9b0bbf-3036-4496-8b13-b46e656d56ea",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "1": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_ometiff/1.0.0",
+      "errors": null,
+      "id": 1,
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Write OMETIFF",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "data"
+        }
+      ],
+      "position": {
+        "left": 200.0,
+        "top": 0.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_ometiff/1.0.0",
+      "tool_shed_repository": {
+        "changeset_revision": "abcdef123456",
+        "name": "write_ometiff",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"format\": \"OME_TIFF\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "24529b34-b1f7-4534-a536-b52b1af20840",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "2": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_jpeg/1.0.0",
+      "errors": null,
+      "id": 2,
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Write JPEG",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "data"
+        }
+      ],
+      "position": {
+        "left": 200.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_jpeg/1.0.0",
+      "tool_shed_repository": {
+        "changeset_revision": "123456abcdef",
+        "name": "write_jpeg",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"format\": \"JPEG\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "2c5abc20-1309-4848-bc63-633187009c49",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "3": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_tiff/1.0.0",
+      "errors": null,
+      "id": 3,
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Write TIFF",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "data"
+        }
+      ],
+      "position": {
+        "left": 200.0,
+        "top": 200.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_tiff/1.0.0",
+      "tool_shed_repository": {
+        "changeset_revision": "fedcba654321",
+        "name": "write_tiff",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"format\": \"TIFF\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "ce8cda09-8f0e-48db-8b98-11908cae65db",
+      "when": null,
+      "workflow_outputs": []
+    }
+  },
+  "tags": [],
+  "uuid": "8a233f67-9626-4d8c-8b48-ebc49bdd5719",
+  "version": 0
+}

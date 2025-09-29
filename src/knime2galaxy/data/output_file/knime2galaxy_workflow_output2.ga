@@ -1,0 +1,267 @@
+{
+  "a_galaxy_workflow": true,
+  "format-version": "0.1",
+  "name": "Converted_KNIME_Workflow",
+  "uuid": "d7700cbc-4d1a-41c6-8217-bc4bdb639714",
+  "version": 0,
+  "annotation": "",
+  "tags": [],
+  "steps": {
+    "0": {
+      "id": 0,
+      "type": "data_input",
+      "name": "Input dataset",
+      "tool_id": null,
+      "tool_state": "{\"optional\": false, \"tag\": null}",
+      "tool_version": null,
+      "content_id": null,
+      "inputs": [],
+      "input_connections": {},
+      "outputs": [],
+      "position": {
+        "left": 0.0,
+        "top": 0.0
+      },
+      "uuid": "2d22ec4e-0e49-4a7a-9225-80234064a674",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": null,
+      "workflow_outputs": []
+    },
+    "1": {
+      "id": 1,
+      "type": "tool",
+      "name": "Split image",
+      "tool_id": "toolshed.example.org/repos/imgteam/split_image/0.1",
+      "tool_state": "{}",
+      "tool_version": "0.1",
+      "content_id": "toolshed.example.org/repos/imgteam/split_image/0.1",
+      "inputs": [],
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "output",
+          "type": "image"
+        }
+      ],
+      "position": {
+        "left": 150.0,
+        "top": 0.0
+      },
+      "uuid": "e57893c3-b2ce-44db-b08a-1c976f33eec4",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "dummyrev",
+        "name": "split_image",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.example.org"
+      },
+      "workflow_outputs": []
+    },
+    "2": {
+      "id": 2,
+      "type": "tool",
+      "name": "Gaussian Convolution",
+      "tool_id": "toolshed.example.org/repos/imgteam/gaussian_blur/0.1",
+      "tool_state": "{}",
+      "tool_version": "0.1",
+      "content_id": "toolshed.example.org/repos/imgteam/gaussian_blur/0.1",
+      "inputs": [],
+      "input_connections": {
+        "input": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "output",
+          "type": "image"
+        }
+      ],
+      "position": {
+        "left": 300.0,
+        "top": 0.0
+      },
+      "uuid": "7ec24c6a-0720-4a80-958d-706f8d9fe4fa",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "dummyrev",
+        "name": "gaussian_blur",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.example.org"
+      },
+      "workflow_outputs": []
+    },
+    "3": {
+      "id": 3,
+      "type": "tool",
+      "name": "Perform histogram equalization",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+      "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "0.18.1+galaxy0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+      "inputs": [],
+      "input_connections": {
+        "input": {
+          "id": 2,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 450.0,
+        "top": 0.0
+      },
+      "uuid": "782884b1-78ea-4e91-afd2-42588de4026c",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "b1c2c210813c",
+        "name": "2d_histogram_equalization",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "workflow_outputs": []
+    },
+    "4": {
+      "id": 4,
+      "type": "tool",
+      "name": "Threshold image",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
+      "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"invert_output\": false, \"th_method\": {\"method_id\": \"otsu\", \"__current_case__\": 1, \"threshold\": \"0\", \"block_size\": \"0\", \"offset\": \"0.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "0.18.1+galaxy3",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
+      "inputs": [],
+      "input_connections": {
+        "input": {
+          "id": 3,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 600.0,
+        "top": 0.0
+      },
+      "uuid": "1af4be72-99f6-4143-92dd-d2f72da2a578",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "699a5e9146b3",
+        "name": "2d_auto_threshold",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "workflow_outputs": []
+    },
+    "5": {
+      "id": 5,
+      "type": "tool",
+      "name": "Convert binary image to label map",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
+      "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"mode\": {\"mode_selector\": \"cca\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "0.5+galaxy0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
+      "inputs": [],
+      "input_connections": {
+        "binary_image": {
+          "id": 4,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "label_image",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 750.0,
+        "top": 0.0
+      },
+      "uuid": "06f64c86-582f-423f-b8dc-ed7a1c12eba3",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "984358e43242",
+        "name": "binary2labelimage",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "workflow_outputs": []
+    },
+    "6": {
+      "id": 6,
+      "type": "tool",
+      "name": "Extract image features",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+      "tool_state": "{\"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "0.18.1+galaxy0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Extract image features",
+          "name": "use_raw_option"
+        }
+      ],
+      "input_connections": {
+        "input_label": {
+          "id": 5,
+          "output_name": "label_image"
+        }
+      },
+      "outputs": [
+        {
+          "name": "measurement_table",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 900.0,
+        "top": 0.0
+      },
+      "uuid": "b951cc6e-9db3-4d46-bb70-58d1c1ccbc5f",
+      "annotation": "",
+      "errors": null,
+      "label": null,
+      "post_job_actions": {},
+      "tool_shed_repository": {
+        "changeset_revision": "5bc8cdc17fd0",
+        "name": "2d_feature_extraction",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "workflow_outputs": []
+    }
+  }
+}
