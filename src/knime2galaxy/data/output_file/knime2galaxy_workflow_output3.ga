@@ -1,21 +1,16 @@
 {
   "a_galaxy_workflow": "true",
-  "annotation": "",
-  "comments": [],
+  "annotation": "Simple workflow that reads an image and writes it in three different formats (OME-TIFF, JPEG, TIFF).",
   "creator": [
     {
       "class": "Person",
       "identifier": "0000-0000-0000-0000-000000000000",
-      "name": "Unknown"
+      "name": "Author"
     }
   ],
   "format-version": "0.1",
   "license": "MIT",
-  "name": "simple_image_writer",
-  "readme": "",
-  "report": {
-    "markdown": ""
-  },
+  "name": "image_reader_writer_multi",
   "steps": {
     "0": {
       "annotation": "",
@@ -25,7 +20,7 @@
       "input_connections": {},
       "inputs": [],
       "label": null,
-      "name": "Input dataset",
+      "name": "Input Image",
       "outputs": [],
       "position": {
         "left": 0.0,
@@ -35,13 +30,13 @@
       "tool_state": "{\"optional\": false, \"tag\": null}",
       "tool_version": null,
       "type": "data_input",
-      "uuid": "1d9b0bbf-3036-4496-8b13-b46e656d56ea",
+      "uuid": "c5b07bfa-71f7-41bd-a93a-03e425fecb66",
       "when": null,
       "workflow_outputs": []
     },
     "1": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_ometiff/1.0.0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "errors": null,
       "id": 1,
       "input_connections": {
@@ -50,37 +45,37 @@
           "output_name": "output"
         }
       },
-      "inputs": [],
-      "label": null,
-      "name": "Write OMETIFF",
-      "outputs": [
+      "inputs": [
         {
-          "name": "output",
-          "type": "data"
+          "description": "runtime parameter for tool Image Writer (OME-TIFF)",
+          "name": "input"
         }
       ],
+      "label": null,
+      "name": "Image Writer (OME-TIFF)",
+      "outputs": [],
       "position": {
-        "left": 200.0,
+        "left": 300.0,
         "top": 0.0
       },
       "post_job_actions": {},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_ometiff/1.0.0",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "tool_shed_repository": {
-        "changeset_revision": "abcdef123456",
-        "name": "write_ometiff",
+        "changeset_revision": "0000000000000000000000000000000000000000",
+        "name": "img_writer",
         "owner": "imgteam",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"format\": \"OME_TIFF\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
-      "tool_version": "1.0.0",
+      "tool_state": "{\"input\": {\"__class__\": \"RuntimeValue\"}, \"directory\": \"/home/massei/Desktop\", \"filename\": \"image_test\", \"format\": \"OME-TIFF\", \"compression\": \"Uncompressed\", \"overwrite\": false, \"write_sequential\": true}",
+      "tool_version": "0.1+galaxy0",
       "type": "tool",
-      "uuid": "24529b34-b1f7-4534-a536-b52b1af20840",
+      "uuid": "6553b65a-ac1b-49f1-8697-f79109dd7ed7",
       "when": null,
       "workflow_outputs": []
     },
     "2": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_jpeg/1.0.0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "errors": null,
       "id": 2,
       "input_connections": {
@@ -89,37 +84,37 @@
           "output_name": "output"
         }
       },
-      "inputs": [],
-      "label": null,
-      "name": "Write JPEG",
-      "outputs": [
+      "inputs": [
         {
-          "name": "output",
-          "type": "data"
+          "description": "runtime parameter for tool Image Writer (JPEG)",
+          "name": "input"
         }
       ],
+      "label": null,
+      "name": "Image Writer (JPEG)",
+      "outputs": [],
       "position": {
-        "left": 200.0,
-        "top": 100.0
+        "left": 300.0,
+        "top": 150.0
       },
       "post_job_actions": {},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_jpeg/1.0.0",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "tool_shed_repository": {
-        "changeset_revision": "123456abcdef",
-        "name": "write_jpeg",
+        "changeset_revision": "0000000000000000000000000000000000000000",
+        "name": "img_writer",
         "owner": "imgteam",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"format\": \"JPEG\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
-      "tool_version": "1.0.0",
+      "tool_state": "{\"input\": {\"__class__\": \"RuntimeValue\"}, \"directory\": \"/home/massei/Desktop\", \"filename\": \"image_test\", \"format\": \"JPEG\", \"compression\": \"Uncompressed\", \"overwrite\": false, \"write_sequential\": true}",
+      "tool_version": "0.1+galaxy0",
       "type": "tool",
-      "uuid": "2c5abc20-1309-4848-bc63-633187009c49",
+      "uuid": "17304cf4-87a0-4045-a918-fd80e86eec21",
       "when": null,
       "workflow_outputs": []
     },
     "3": {
       "annotation": "",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_tiff/1.0.0",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "errors": null,
       "id": 3,
       "input_connections": {
@@ -128,36 +123,39 @@
           "output_name": "output"
         }
       },
-      "inputs": [],
-      "label": null,
-      "name": "Write TIFF",
-      "outputs": [
+      "inputs": [
         {
-          "name": "output",
-          "type": "data"
+          "description": "runtime parameter for tool Image Writer (TIFF)",
+          "name": "input"
         }
       ],
+      "label": null,
+      "name": "Image Writer (TIFF)",
+      "outputs": [],
       "position": {
-        "left": 200.0,
-        "top": 200.0
+        "left": 300.0,
+        "top": 300.0
       },
       "post_job_actions": {},
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/write_tiff/1.0.0",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/img_writer/img_writer/0.1+galaxy0",
       "tool_shed_repository": {
-        "changeset_revision": "fedcba654321",
-        "name": "write_tiff",
+        "changeset_revision": "0000000000000000000000000000000000000000",
+        "name": "img_writer",
         "owner": "imgteam",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"format\": \"TIFF\", \"filename\": \"image_test\", \"compression\": \"Uncompressed\", \"write_sequential\": true}",
-      "tool_version": "1.0.0",
+      "tool_state": "{\"input\": {\"__class__\": \"RuntimeValue\"}, \"directory\": \"/home/massei/Desktop\", \"filename\": \"image_test\", \"format\": \"TIFF\", \"compression\": \"Uncompressed\", \"overwrite\": false, \"write_sequential\": true}",
+      "tool_version": "0.1+galaxy0",
       "type": "tool",
-      "uuid": "ce8cda09-8f0e-48db-8b98-11908cae65db",
+      "uuid": "b1ca5e26-a9d4-4ceb-b1c8-16341ccbc135",
       "when": null,
       "workflow_outputs": []
     }
   },
-  "tags": [],
-  "uuid": "8a233f67-9626-4d8c-8b48-ebc49bdd5719",
+  "tags": [
+    "bioimaging",
+    "IO"
+  ],
+  "uuid": "c18c3b35-f0f8-4dec-af98-4fc19ebf3e97",
   "version": 0
 }
