@@ -25,3 +25,22 @@ def collect_knime_node_files(knwf_path: str) -> dict:
                     node_name = file_name.split("/")[-2]  # Ordnername
                     node_data[node_name] = xml_content
     return node_data
+
+def collect_workflow_file(knwf_path: str) -> str:
+    """
+    Extracts the content of the workflow.knime file inside the KNIME .knwf archive.
+    Returns the file content as a string.
+    """
+    with zipfile.ZipFile(knwf_path, "r") as zf:
+        for file_name in zf.namelist():
+            if file_name.endswith("workflow.knime"):
+                with zf.open(file_name) as f:
+                    return f.read().decode("utf-8")
+    raise FileNotFoundError("workflow.knime not found in KNWF archive")
+
+def convert_knime_dict_to_string(node_data: dict) -> str:
+    
+    knime_nodes_str = "\n".join(
+    f"Node ID: {key}\n{value}" for key, value in node_data.items())
+
+    return knime_nodes_str
