@@ -31,7 +31,7 @@ def prompt_scadsai_llm(message: str, model: str = "openai/gpt-oss-120b") -> str:
 
     response = client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": message}],
+        messages=message,
     )
 
     return response.choices[0].message.content

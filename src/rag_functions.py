@@ -44,3 +44,9 @@ def build_all_docs(data):
                 metas.append(m)
     return texts, metas
 
+def search_store_for_hits(description, vector_store):
+    steps = [s.strip() for s in description.split(";") if s.strip()]
+    for step in steps:
+        hits = vector_store.search(step, k=10)
+    
+    return hits
