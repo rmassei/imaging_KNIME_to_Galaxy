@@ -135,8 +135,8 @@ The input node descriptions could be one of the following:
 - Do not include TODOs or comments in the JSON.
 - Do not add anything in there that is not part of the Galaxy workflow JSON format
 - Get the tool ids, content ids and versions correct based on the following knowledge base of Galaxy tools:
-
 {hits}
+- NEVER come up with own tool IDs, content IDs or versions on your own. ONLY use the ones provided from the previously given knowledge base.
 
 - Use type: "data_input" only for a single dataset that is consumed by inputs expecting a single dataset.
 - Use type: "data_collection_input" only when any downstream input expects a collection (e.g., list or list:paired).
