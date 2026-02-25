@@ -1,0 +1,1040 @@
+- description: Input Image dataset
+  Galaxy: |
+    "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Input Image Dataset"
+                }
+            ],
+            "label": "Input Image Dataset",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "left": 0.0,
+                "top": 0.0
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": null}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "312178b3-3fac-49ab-95cf-29e3f44e6015",
+            "when": null,
+            "workflow_outputs": []
+        },
+  Python: |
+    from skimage import io
+
+    input_image = io.imread('input_image.tiff')
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="check_file_format_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="check_file_format" type="xboolean" value="true"/>
+            <config key="group_files_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="group_files" type="xboolean" value="true"/>
+            <config key="plane_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_imagesubsetselecction"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="plane_selection">
+                <entry key="num_selected_dims" type="xint" value="0"/>
+            </config>
+            <config key="img_factory_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="img_factory" type="xstring" value="Array Image Factory"/>
+            <config key="read_all_series_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="read_all_series" type="xboolean" value="true"/>
+            <config key="series_range_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_doubleRange"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <config key="series_range_selection">
+                <entry key="MIN" type="xdouble" value="0.0"/>
+                <entry key="MAX" type="xdouble" value="32767.0"/>
+            </config>
+            <config key="metadata_mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="metadata_mode" type="xstring" value="No metadata"/>
+            <config key="read_all_metadata_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="read_all_metadata" type="xboolean" value="false"/>
+            <config key="m_pixeltype_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="m_pixeltype" type="xstring" value="&lt; Automatic &gt;"/>
+            <config key="file_list_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="file_list">
+                <entry key="array-size" type="xint" value="0"/>
+            </config>
+            <config key="complete_path_rowkey_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="complete_path_rowkey" type="xboolean" value="false"/>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <config key="nodecontainer_message">
+            <entry key="type" type="xstring" value="WARNING"/>
+            <entry key="message" type="xstring" value="No files selected!"/>
+        </config>
+        <entry key="factory" type="xstring" value="org.knime.knip.io.nodes.imgreader2.readfromdialog.ImgReader2NodeFactory"/>
+        <entry key="node-name" type="xstring" value="Image Reader"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image IO"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.io"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307191402"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Image Reader"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+- description: Extract Channel
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
+            "errors": null,
+            "id": 1,
+            "input_connections": {
+                "input_file": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "Extract Channel",
+            "name": "Convert image format",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 288.6593819980045,
+                "top": 95.931093401047
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
+            "tool_shed_repository": {
+                "changeset_revision": "fcadded98e61",
+                "name": "bfconvert",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"bigtiff\": false, \"channel_options\": {\"extract\": \"True\", \"__current_case__\": 1, \"channel\": \"0\"}, \"compression\": \"False\", \"crop_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"input_file\": {\"__class__\": \"ConnectedValue\"}, \"noflat\": true, \"out_format\": \"tiff\", \"pyramid_options\": {\"generate\": \"False\", \"__current_case__\": 1}, \"range_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"series_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"tile_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"timepoint_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"z_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "6.7.0+galaxy3",
+            "type": "tool",
+            "uuid": "a3bc5484-795c-461b-85de-0a47278a94b4",
+            "when": null,
+            "workflow_outputs": []
+        },
+  Python: |
+    channel_0 = input_image[..., 0]  # Extrahiert den ersten Kanal (z. B. Rot bei RGB)
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_selection" type="xstring" value=""/>
+            <config key="dim_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="dim_selection">
+                <entry key="array-size" type="xint" value="2"/>
+                <entry key="0" type="xstring" value="X"/>
+                <entry key="1" type="xstring" value="Y"/>
+            </config>
+            <config key="is_advanced_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="is_advanced" type="xboolean" value="false"/>
+            <config key="Column Creation Mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="Column Creation Mode" type="xstring" value="New Table"/>
+            <config key="Column Suffix_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="Column Suffix" type="xstring" value=""/>
+            <config key="0_advanced_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <entry key="0_advanced_selection" type="xint" value="0"/>
+            <config key="1_advanced_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <entry key="1_advanced_selection" type="xint" value="0"/>
+            <config key="2_advanced_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <entry key="2_advanced_selection" type="xint" value="0"/>
+            <config key="3_advanced_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <entry key="3_advanced_selection" type="xint" value="0"/>
+            <config key="4_advanced_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <entry key="4_advanced_selection" type="xint" value="0"/>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.misc.splitter.Splitter2NodeFactory"/>
+        <entry key="node-name" type="xstring" value="Splitter"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Splitter"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+- description: 2D Feature Extraction
+
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "input_label": {
+                    "id": 5,
+                    "output_name": "output"
+                },
+                "use_raw_option|input_raw": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Extract image features",
+                    "name": "use_raw_option"
+                }
+            ],
+            "label": null,
+            "name": "Extract image features",
+            "outputs": [
+                {
+                    "name": "measurement_table",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 1910.1224067606613,
+                "top": 373.2834951125177
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "5bc8cdc17fd0",
+                "name": "2d_feature_extraction",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"feature_options\": {\"features\": \"select\", \"__current_case__\": 1, \"selected_features\": [\"--label\", \"--max_intensity\", \"--mean_intensity\", \"--area\", \"--perimeter\", \"--eccentricity\", \"--major_axis_length\", \"--minor_axis_length\"]}, \"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "037f8425-2c6c-4fea-8296-b5b6fb6d6479",
+            "when": null,
+            "workflow_outputs": []
+        }
+
+  Python: |
+    import numpy as np
+    import pandas as pd
+    from skimage import measure
+    from skimage.measure import regionprops_table
+    from skimage.draw import disk
+    import matplotlib.pyplot as plt
+
+    # Definierte Features wie in Galaxy Workflow
+    features = [
+        'label',
+        'area',
+        'perimeter',
+        'eccentricity',
+        'major_axis_length',
+        'minor_axis_length',
+        'max_intensity',
+        'mean_intensity'
+    ]
+
+    # Feature-Extraktion mit skimage
+    props = regionprops_table(input_label, intensity_image=input_raw, properties=features)
+    measurement_table = pd.DataFrame(props)
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="column_creation_mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_creation_mode" type="xstring" value="New Table"/>
+            <config key="column_suffix_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_suffix" type="xstring" value=""/>
+            <config key="column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="column_selection">
+                <config key="InclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <config key="ExclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+            </config>
+            <config key="sigmas_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="sigmas" type="xstring" value="2, 2"/>
+            <config key="outofboundsstrategy_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="outofboundsstrategy" type="xstring" value="BORDER"/>
+            <config key="dim_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="dim_selection">
+                <entry key="array-size" type="xint" value="2"/>
+                <entry key="0" type="xstring" value="X"/>
+                <entry key="1" type="xstring" value="Y"/>
+            </config>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.filter.GaussNativeTypeNodeFactory2"/>
+        <entry key="node-name" type="xstring" value="Gaussian Convolution"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Gaussian Convolution"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+
+- description: Perform histogram equalization
+
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "input": {
+                    "id": 2,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Perform histogram equalization",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 938.2194033232004,
+                "top": 160.122907273184
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "b1c2c210813c",
+                "name": "2d_histogram_equalization",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "6969f588-0341-4964-b396-a6d549970f5b",
+            "when": null,
+            "workflow_outputs": []
+        },
+
+  Python: |
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="column_creation_mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_creation_mode" type="xstring" value="New Table"/>
+            <config key="column_suffix_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_suffix" type="xstring" value=""/>
+            <config key="column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="column_selection">
+                <config key="InclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <config key="ExclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+            </config>
+            <config key="nrctxregions_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="nrctxregions" type="xint" value="8"/>
+            <config key="nrbins_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="nrbins" type="xint" value="256"/>
+            <config key="slope_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_double"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="slope" type="xdouble" value="3.0"/>
+            <config key="dim_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="dim_selection">
+                <entry key="array-size" type="xint" value="2"/>
+                <entry key="0" type="xstring" value="X"/>
+                <entry key="1" type="xstring" value="Y"/>
+            </config>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.proc.clahe.ClaheNodeFactory"/>
+        <entry key="node-name" type="xstring" value="CLAHE"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="CLAHE"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+- description: Threshold Image
+
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "input": {
+                    "id": 3,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Threshold image",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 1285.1608735368934,
+                "top": 190.69043768848735
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.18.1+galaxy3",
+            "tool_shed_repository": {
+                "changeset_revision": "699a5e9146b3",
+                "name": "2d_auto_threshold",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"invert_output\": false, \"th_method\": {\"method_id\": \"otsu\", \"__current_case__\": 1, \"threshold\": \"0\", \"block_size\": \"0\", \"offset\": \"0.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy3",
+            "type": "tool",
+            "uuid": "3fa4e60e-bb57-4623-b2d6-bd49fbb06678",
+            "when": null,
+            "workflow_outputs": []
+        },
+  Python: |
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="column_creation_mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_creation_mode" type="xstring" value="New Table"/>
+            <config key="column_suffix_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_suffix" type="xstring" value=""/>
+            <config key="column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="column_selection">
+                <config key="InclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <config key="ExclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+            </config>
+            <config key="manual_threshold_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_double"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="manual_threshold" type="xdouble" value="0.0"/>
+            <config key="thresholder_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="thresholder" type="xstring" value="MANUAL"/>
+            <config key="optinal_column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="optinal_column_selection" type="xstring" value=""/>
+            <config key="dim_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+                <entry key="EnabledStatus" type="xboolean" value="false"/>
+            </config>
+            <config key="dim_selection">
+                <entry key="array-size" type="xint" value="2"/>
+                <entry key="0" type="xstring" value="X"/>
+                <entry key="1" type="xstring" value="Y"/>
+            </config>
+            <config key="fill_non_roi_pixels_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="fill_non_roi_pixels" type="xstring" value="No Filling"/>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.proc.ThresholderNodeFactory3"/>
+        <entry key="node-name" type="xstring" value="Global Thresholder"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Global Thresholder"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+
+- description: Convert binary image to label map
+
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "binary_image": {
+                    "id": 4,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Convert binary image to label map",
+            "outputs": [
+                {
+                    "name": "label_image",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 1616.8185785429348,
+                "top": 222.78634462455585
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.5+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "984358e43242",
+                "name": "binary2labelimage",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"input\": {\"__class__\": \"ConnectedValue\"}, \"mode\": {\"mode_selector\": \"cca\", \"__current_case__\": 0}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.5+galaxy0",
+            "type": "tool",
+            "uuid": "4483a3d7-6f28-4814-adfc-ce6a787477e7",
+            "when": null,
+            "workflow_outputs": []
+        },  
+  
+  Python: |
+    from skimage import measure
+
+    label_image = measure.label(binary_image, connectivity=2)
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="column_creation_mode_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_creation_mode" type="xstring" value="New Table"/>
+            <config key="column_suffix_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="column_suffix" type="xstring" value=""/>
+            <config key="column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="column_selection">
+                <config key="InclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <config key="ExclList">
+                    <entry key="array-size" type="xint" value="0"/>
+                </config>
+                <entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+            </config>
+            <config key="factoryselection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="factoryselection" type="xstring" value="SOURCE_FACTORY"/>
+            <config key="background_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="background" type="xint" value="0"/>
+            <config key="dimensions_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_dimselection"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="dimensions">
+                <entry key="array-size" type="xint" value="2"/>
+                <entry key="0" type="xstring" value="X"/>
+                <entry key="1" type="xstring" value="Y"/>
+            </config>
+            <config key="connection_type_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="connection_type" type="xstring" value="Four-Connected"/>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.seg.ConnectedCompAnalysisNodeFactory"/>
+        <entry key="node-name" type="xstring" value="Connected Component Analysis"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Connected Component Analysis"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+
+- description: Extract features from label map
+
+  Galaxy: |
+    "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "input_label": {
+                    "id": 5,
+                    "output_name": "output"
+                },
+                "use_raw_option|input_raw": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Extract image features",
+                    "name": "use_raw_option"
+                }
+            ],
+            "label": null,
+            "name": "Extract image features",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 1910.1224067606613,
+                "top": 373.2834951125177
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "5bc8cdc17fd0",
+                "name": "2d_feature_extraction",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"feature_options\": {\"features\": \"select\", \"__current_case__\": 1, \"selected_features\": [\"--label\", \"--max_intensity\", \"--mean_intensity\", \"--area\", \"--perimeter\", \"--eccentricity\", \"--major_axis_length\", \"--minor_axis_length\"]}, \"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "037f8425-2c6c-4fea-8296-b5b6fb6d6479",
+            "when": null,
+            "workflow_outputs": []
+        }
+  
+  Python: |
+
+  KNIME: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+        <entry key="node_file" type="xstring" value="settings.xml"/>
+        <config key="flow_stack"/>
+        <config key="internal_node_subsettings">
+            <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+        </config>
+        <config key="model">
+            <config key="haralick_greylevel_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="haralick_greylevel" type="xint" value="40"/>
+            <config key="haralick_cooc_mtx_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="haralick_cooc_mtx_selection">
+                <entry key="array-size" type="xint" value="4"/>
+                <entry key="0" type="xstring" value="DIAGONAL"/>
+                <entry key="1" type="xstring" value="ANTIDIAGONAL"/>
+                <entry key="2" type="xstring" value="HORIZONTAL"/>
+                <entry key="3" type="xstring" value="VERTICAL"/>
+            </config>
+            <config key="haralick_distance_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="haralick_distance" type="xint" value="1"/>
+            <config key="haralick_texture_feature_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="haralick_texture_feature_selection">
+                <entry key="array-size" type="xint" value="15"/>
+                <entry key="0" type="xstring" value="ASM"/>
+                <entry key="1" type="xstring" value="Contrast"/>
+                <entry key="2" type="xstring" value="Correlation"/>
+                <entry key="3" type="xstring" value="Variance"/>
+                <entry key="4" type="xstring" value="IFDM"/>
+                <entry key="5" type="xstring" value="SumAverage"/>
+                <entry key="6" type="xstring" value="SumVariance"/>
+                <entry key="7" type="xstring" value="SumEntropy"/>
+                <entry key="8" type="xstring" value="Entropy"/>
+                <entry key="9" type="xstring" value="DifferenceVariance"/>
+                <entry key="10" type="xstring" value="DifferenceEntropy"/>
+                <entry key="11" type="xstring" value="ICM1"/>
+                <entry key="12" type="xstring" value="ICM2"/>
+                <entry key="13" type="xstring" value="ClusterShade"/>
+                <entry key="14" type="xstring" value="ClusterProminence"/>
+            </config>
+            <config key="CFG_AVERGAGE_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="CFG_AVERGAGE" type="xboolean" value="false"/>
+            <config key="append_histogram_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="append_histogram" type="xboolean" value="false"/>
+            <config key="fos_feature_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="fos_feature_selection">
+                <entry key="array-size" type="xint" value="20"/>
+                <entry key="0" type="xstring" value="Min"/>
+                <entry key="1" type="xstring" value="Max"/>
+                <entry key="2" type="xstring" value="Mean"/>
+                <entry key="3" type="xstring" value="Geometric Mean"/>
+                <entry key="4" type="xstring" value="Sum"/>
+                <entry key="5" type="xstring" value="Squares of Sum"/>
+                <entry key="6" type="xstring" value="Std Dev"/>
+                <entry key="7" type="xstring" value="Variance"/>
+                <entry key="8" type="xstring" value="Skewness"/>
+                <entry key="9" type="xstring" value="Kurtosis"/>
+                <entry key="10" type="xstring" value="Quantil 25"/>
+                <entry key="11" type="xstring" value="Quantil 50"/>
+                <entry key="12" type="xstring" value="Quantil 75"/>
+                <entry key="13" type="xstring" value="Median absolute deviation (MAD)"/>
+                <entry key="14" type="xstring" value="WeightedCentroid Dim 1"/>
+                <entry key="15" type="xstring" value="WeightedCentroid Dim 2"/>
+                <entry key="16" type="xstring" value="WeightedCentroid Dim 3"/>
+                <entry key="17" type="xstring" value="WeightedCentroid Dim 4"/>
+                <entry key="18" type="xstring" value="WeightedCentroid Dim 5"/>
+                <entry key="19" type="xstring" value="Mass Displacement"/>
+            </config>
+            <config key="histogram_bins_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="histogram_bins" type="xint" value="64"/>
+            <config key="percentiles_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="percentiles" type="xstring" value=""/>
+            <config key="tamura_texture_feature_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="tamura_texture_feature_selection">
+                <entry key="array-size" type="xint" value="6"/>
+                <entry key="0" type="xstring" value="TamuraGranularity"/>
+                <entry key="1" type="xstring" value="TamuraContrast"/>
+                <entry key="2" type="xstring" value="TamuraKurtosisOfDirectionality"/>
+                <entry key="3" type="xstring" value="TamuraStdDevDirectionality"/>
+                <entry key="4" type="xstring" value="TamuraMaxDirectionality"/>
+                <entry key="5" type="xstring" value="TamuraSkewness"/>
+            </config>
+            <config key="active_feature_sets_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_stringarray"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <config key="active_feature_sets">
+                <entry key="array-size" type="xint" value="0"/>
+            </config>
+            <config key="img_column_selection_Internals">
+                <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+                <entry key="EnabledStatus" type="xboolean" value="true"/>
+            </config>
+            <entry key="img_column_selection" type="xstring" value=""/>
+        </config>
+        <entry key="customDescription" type="xstring" isnull="true" value=""/>
+        <entry key="state" type="xstring" value="IDLE"/>
+        <entry key="factory" type="xstring" value="org.knime.knip.base.nodes.features.ImgFeatureSetNodeFactory"/>
+        <entry key="node-name" type="xstring" value="Image Features"/>
+        <entry key="node-bundle-name" type="xstring" value="KNIME Image Types and Nodes"/>
+        <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.knip.base"/>
+        <entry key="node-bundle-vendor" type="xstring" value="University of Konstanz"/>
+        <entry key="node-bundle-version" type="xstring" value="1.8.3.v202307210919"/>
+        <entry key="node-feature-name" type="xstring" value="KNIME Image Processing"/>
+        <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.knip.feature.feature.group"/>
+        <entry key="node-feature-vendor" type="xstring" value="University of Konstanz / KNIME"/>
+        <entry key="node-feature-version" type="xstring" value="1.8.3.v202307210919"/>
+        <config key="factory_settings"/>
+        <entry key="name" type="xstring" value="Image Features"/>
+        <entry key="hasContent" type="xboolean" value="false"/>
+        <entry key="isInactive" type="xboolean" value="false"/>
+        <config key="ports">
+            <config key="port_1">
+                <entry key="index" type="xint" value="1"/>
+                <entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+            </config>
+        </config>
+        <config key="filestores">
+            <entry key="file_store_location" type="xstring" isnull="true" value=""/>
+            <entry key="file_store_id" type="xstring" isnull="true" value=""/>
+        </config>
+    </config>
+
+
+
+
+  

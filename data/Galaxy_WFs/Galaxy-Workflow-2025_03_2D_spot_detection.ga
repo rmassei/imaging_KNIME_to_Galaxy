@@ -1,0 +1,304 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "Workflow for 2D spot detection in a 2D image.\nPreprocessing consist in a CLAHE normalization.",
+    "comments": [
+        {
+            "child_steps": [
+                0,
+                1,
+                2
+            ],
+            "color": "yellow",
+            "data": {
+                "title": "User Input"
+            },
+            "id": 0,
+            "position": [
+                0,
+                0
+            ],
+            "size": [
+                243.2,
+                379.4
+            ],
+            "type": "frame"
+        }
+    ],
+    "creator": [
+        {
+            "class": "Person",
+            "identifier": "0000-0003-2104-9519",
+            "name": "Riccardo Massei"
+        }
+    ],
+    "format-version": "0.1",
+    "license": "MIT",
+    "name": "2025_03_2D_spot_detection",
+    "report": {
+        "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
+    },
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [],
+            "label": null,
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "left": 22.9,
+                "top": 40
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": null}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "57d04701-b77d-4a17-998c-8a2705dbf81e",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 1,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Width of output image"
+                }
+            ],
+            "label": "Width of output image",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 19.966971633830155,
+                "top": 158.5565183721187
+            },
+            "tool_id": null,
+            "tool_state": "{\"validators\": [{\"min\": null, \"max\": null, \"negate\": false, \"type\": \"in_range\"}], \"parameter_type\": \"integer\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "b8a6640f-e275-4b3b-ba97-2ed86ae0a231",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "2": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 2,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Height of output image "
+                }
+            ],
+            "label": "Height of output image ",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 23.13206939458121,
+                "top": 277.2476844002832
+            },
+            "tool_id": null,
+            "tool_state": "{\"validators\": [{\"min\": null, \"max\": null, \"negate\": false, \"type\": \"in_range\"}], \"parameter_type\": \"integer\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "02f62677-df35-467e-84b4-c1099c620efd",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "3": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "input": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Perform histogram equalization",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 332.9,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "b1c2c210813c",
+                "name": "2d_histogram_equalization",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "32277684-69f4-4060-9bf9-2659ac8c1f0b",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "4": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/spot_detection_2d/ip_spot_detection_2d/0.1+galaxy0",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "fn_in": {
+                    "id": 3,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Perform 2-D spot detection",
+            "outputs": [
+                {
+                    "name": "fn_out",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 642.9,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/spot_detection_2d/ip_spot_detection_2d/0.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "e8c9e104e109",
+                "name": "spot_detection_2d",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"abs_threshold\": \"0.25\", \"boundary\": \"10\", \"filter_type\": \"LoG\", \"fn_in\": {\"__class__\": \"ConnectedValue\"}, \"frame_1st\": \"1\", \"frame_end\": \"0\", \"max_scale\": \"2.0\", \"min_scale\": \"1.0\", \"rel_threshold\": \"0.0\", \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1+galaxy0",
+            "type": "tool",
+            "uuid": "e66a2fcd-fcec-43d5-9e27-1b75ef691c4e",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "5": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/points2labelimage/ip_points_to_label/0.4.1+galaxy1",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "fn_out"
+                },
+                "shapex": {
+                    "id": 1,
+                    "output_name": "output"
+                },
+                "shapey": {
+                    "id": 2,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Convert coordinates to label map",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 952.9,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/points2labelimage/ip_points_to_label/0.4.1+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "4a49f74a3c14",
+                "name": "points2labelimage",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"binary\": false, \"has_header\": true, \"input\": {\"__class__\": \"ConnectedValue\"}, \"shapex\": {\"__class__\": \"ConnectedValue\"}, \"shapey\": {\"__class__\": \"ConnectedValue\"}, \"swap_xy\": false, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.4.1+galaxy1",
+            "type": "tool",
+            "uuid": "7fbdc809-6850-4c1e-adb2-dec239b28a82",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "6": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "input_label": {
+                    "id": 5,
+                    "output_name": "output"
+                },
+                "use_raw_option|input_raw": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Extract image features",
+                    "name": "use_raw_option"
+                }
+            ],
+            "label": null,
+            "name": "Extract image features",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 1262.9,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_feature_extraction/ip_2d_feature_extraction/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "5bc8cdc17fd0",
+                "name": "2d_feature_extraction",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"feature_options\": {\"features\": \"all\", \"__current_case__\": 0}, \"input_label\": {\"__class__\": \"ConnectedValue\"}, \"use_raw_option\": {\"use_raw\": \"raw_image\", \"__current_case__\": 1, \"input_raw\": {\"__class__\": \"ConnectedValue\"}}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "9de22607-0830-4fd5-adee-b1ec23be2978",
+            "when": null,
+            "workflow_outputs": [
+                {
+                    "label": "output",
+                    "output_name": "output",
+                    "uuid": "976425cb-26b7-41dd-98a2-d59c6f0653fc"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "KNIMEtoGalaxy",
+        "bioimaging",
+        "imageanaylsis"
+    ],
+    "uuid": "4cab743e-65d8-4df2-afb1-6bf7041ab8a3",
+    "version": 1
+}

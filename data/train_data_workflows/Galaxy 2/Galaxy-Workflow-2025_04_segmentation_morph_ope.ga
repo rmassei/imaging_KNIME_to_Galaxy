@@ -1,0 +1,387 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "Workflow for image segmentation including an erosion morphological operation and preprocessing (CLAHE and Median Filtering)",
+    "comments": [],
+    "creator": [
+        {
+            "class": "Person",
+            "identifier": "0000-0003-2104-9519",
+            "name": "Riccardo Massei"
+        }
+    ],
+    "format-version": "0.1",
+    "license": "MIT",
+    "name": "2025_04_segmentation_morph_ope",
+    "report": {
+        "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
+    },
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [],
+            "label": null,
+            "name": "Input dataset collection",
+            "outputs": [],
+            "position": {
+                "left": 17.524506747898396,
+                "top": 0.0
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": null, \"collection_type\": \"list\", \"fields\": null}",
+            "tool_version": null,
+            "type": "data_collection_input",
+            "uuid": "1d29844c-d19e-40e2-9fd7-3f8edf929537",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 1,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Extract channel"
+                }
+            ],
+            "label": "Extract channel",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 18.98642595733283,
+                "top": 130.51303597883813
+            },
+            "tool_id": null,
+            "tool_state": "{\"validators\": [{\"min\": null, \"max\": null, \"negate\": false, \"type\": \"in_range\"}], \"parameter_type\": \"integer\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "a35f7609-28d7-49c1-97d2-b1a4b9278ce7",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "2": {
+            "annotation": "The radius of the disk, or the width of the square, in pixels.",
+            "content_id": null,
+            "errors": null,
+            "id": 2,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "The radius of the disk, or the width of the square, in pixels.",
+                    "name": "Size of the disk for erosion"
+                }
+            ],
+            "label": "Size of the disk for erosion",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 0.0,
+                "top": 332.5351182820876
+            },
+            "tool_id": null,
+            "tool_state": "{\"validators\": [{\"min\": null, \"max\": null, \"negate\": false, \"type\": \"in_range\"}], \"parameter_type\": \"integer\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "ae3a9483-d7bc-4dee-b323-8f1473bba736",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "3": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "channel_options|channel": {
+                    "id": 1,
+                    "output_name": "output"
+                },
+                "input_file": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Convert image format",
+                    "name": "channel_options"
+                },
+                {
+                    "description": "runtime parameter for tool Convert image format",
+                    "name": "input_file"
+                }
+            ],
+            "label": null,
+            "name": "Convert image format",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 294.5245067478984,
+                "top": 64.0
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/bfconvert/ip_convertimage/6.7.0+galaxy3",
+            "tool_shed_repository": {
+                "changeset_revision": "fcadded98e61",
+                "name": "bfconvert",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"bigtiff\": false, \"channel_options\": {\"extract\": \"True\", \"__current_case__\": 1, \"channel\": {\"__class__\": \"ConnectedValue\"}}, \"compression\": \"False\", \"crop_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"input_file\": {\"__class__\": \"RuntimeValue\"}, \"noflat\": true, \"out_format\": \"tiff\", \"pyramid_options\": {\"generate\": \"True\", \"__current_case__\": 0, \"pyramid_resolutions\": \"4\", \"pyramid_scale\": \"2\"}, \"range_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"series_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"tile_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"timepoint_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"z_options\": {\"extract\": \"False\", \"__current_case__\": 0}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "6.7.0+galaxy3",
+            "type": "tool",
+            "uuid": "e76fbac0-b378-49f1-a7a8-dfa7c6268455",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "4": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "input": {
+                    "id": 3,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Perform histogram equalization",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Perform histogram equalization",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 536.4548754915387,
+                "top": 241.75385430480947
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "b1c2c210813c",
+                "name": "2d_histogram_equalization",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"RuntimeValue\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.18.1+galaxy0",
+            "type": "tool",
+            "uuid": "44cff980-0fd6-4c29-a134-ea6018a2b57b",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "5": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_simple_filter/ip_filter_standard/1.12.0+galaxy1",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Filter 2-D image",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Filter 2-D image",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 812.7666515536326,
+                "top": 362.5817729100094
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_simple_filter/ip_filter_standard/1.12.0+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "d51310ab328a",
+                "name": "2d_simple_filter",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"filter\": {\"filter_type\": \"median\", \"__current_case__\": 1, \"size\": \"3\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.12.0+galaxy1",
+            "type": "tool",
+            "uuid": "bfe31f11-dc9e-460e-905a-6b55c4d52adc",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "6": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.25.0+galaxy0",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "input": {
+                    "id": 5,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Threshold image",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Threshold image",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 1016.8576004061576,
+                "top": 576.158640402905
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_auto_threshold/ip_threshold/0.25.0+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "50fa6150e340",
+                "name": "2d_auto_threshold",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"input\": {\"__class__\": \"RuntimeValue\"}, \"invert_output\": false, \"th_method\": {\"method_id\": \"otsu\", \"__current_case__\": 1, \"threshold1\": \"0\", \"threshold2\": \"\", \"block_size\": \"0\", \"offset\": \"0.0\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.25.0+galaxy0",
+            "type": "tool",
+            "uuid": "f1fbe299-d9c4-423e-a10d-870988cf3455",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "7": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/morphological_operations/morphological_operations/1.12.0+galaxy1",
+            "errors": null,
+            "id": 7,
+            "input_connections": {
+                "image": {
+                    "id": 6,
+                    "output_name": "output"
+                },
+                "selem_size": {
+                    "id": 2,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Apply a morphological operation",
+                    "name": "image"
+                }
+            ],
+            "label": null,
+            "name": "Apply a morphological operation",
+            "outputs": [
+                {
+                    "name": "result",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 1257.7469934115773,
+                "top": 690.2499633375576
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/morphological_operations/morphological_operations/1.12.0+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "4e25befab102",
+                "name": "morphological_operations",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"image\": {\"__class__\": \"RuntimeValue\"}, \"operation\": \"erosion\", \"selem_shape\": \"disk\", \"selem_size\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "1.12.0+galaxy1",
+            "type": "tool",
+            "uuid": "f9be4a8c-0b64-499f-9e71-08ae6bdbe728",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "8": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.6+galaxy0",
+            "errors": null,
+            "id": 8,
+            "input_connections": {
+                "input": {
+                    "id": 7,
+                    "output_name": "result"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Convert binary image to label map",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Convert binary image to label map",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tiff"
+                }
+            ],
+            "position": {
+                "left": 1579.4372176518173,
+                "top": 857.1677558174437
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/binary2labelimage/ip_binary_to_labelimage/0.6+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "7f8102bdbfa1",
+                "name": "binary2labelimage",
+                "owner": "imgteam",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"input\": {\"__class__\": \"RuntimeValue\"}, \"mode\": {\"mode_selector\": \"cca\", \"__current_case__\": 0}, \"__page__\": 0, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.6+galaxy0",
+            "type": "tool",
+            "uuid": "bc9a259e-158b-4317-9282-7a72daaef64d",
+            "when": null,
+            "workflow_outputs": [
+                {
+                    "label": "output",
+                    "output_name": "output",
+                    "uuid": "67e480d7-3f16-4ef3-bf0d-d26c43a33ba2"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "imageanaylsis",
+        "bioimaging",
+        "KNIMEtoGalaxy",
+        "NFDI4BIOIMAGE",
+        "Segmentation"
+    ],
+    "uuid": "dfabde7f-2e0f-424e-8214-7422383ec1c9",
+    "version": 2
+}
