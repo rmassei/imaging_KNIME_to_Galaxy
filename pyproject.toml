@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imaging-knime-to-galaxy"
+version = "0.1.0"
+description = "A python framework to convert KNIME workflows to Galaxy."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "jupyterlab",
+    "openai",
+    "numpy",
+    "planemo"
+]
