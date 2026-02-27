@@ -1,60 +1,120 @@
-## KNIME & Galaxy Workflow Translation Table Generator
+# KNIME2Galaxy Workflow Translator
+Translate KNIME workflows (`.knwf`) into valid Galaxy workflows (`.ga`) using embedding-based tool retrieval and LLM-guided workflow reconstruction.
 
-This repository contains the code to generate translation tables from KNIME and Galaxy workflows. These tables will 
-help to automate the translation of workflows between these two platforms
+## Overview
 
-### Translation Table Location
+This project translates KNIME workflows into functionally equivalent Galaxy workflows.
+It combines:
 
-All generated translation tables are stored in the directory:
+- Galaxy tool metadata to represent available tools  
+- Mapping examples to guide translation  
+- Embedding-based similarity search to retrieve relevant tools  
+- Structured LLM prompting to generate valid Galaxy `.ga` workflows
 
-`src/translation_table`
+## Installation
 
-These translation tables map equivalent functionalities between KNIME nodes and Galaxy tools
+This project uses a `pyproject.toml` setup.
+
+### Clone the repository
+
+```bash
+git clone https://github.com/rmassei/imaging_KNIME_to_Galaxy.git
+cd imaging_KNIME_to_Galaxy
+```
+
+### Create a virtual environment
+
+**Using Python venv**
+
+```bash
+python -m venv .venv
+source .venv/bin/activate      # macOS/Linux
+.venv\Scripts\activate         # Windows
+```
+
+**Using Conda**
+
+Create a new environment:
+
+```bash
+conda create -n knime2galaxy python=3.10
+```
+
+Activate the environment:
+
+```bash
+conda activate knime2galaxy
+```
+
+### Install the package
+
+```bash
+pip install -e .
+```
+
+## How It Works
+
+1. **Load Galaxy Tool Metadata**  
+   Metadata is loaded and converted into structured text representations.
+
+2. **Build the Vector Store**  
+   Tool descriptions are embedded and stored in a vector index for similarity search.
+
+3. **Parse the KNIME Workflow**  
+   The `.knwf` file is unpacked to extract nodes and workflow structure.
+
+4. **Generate Workflow Understanding via LLM**  
+   The KNIME content is combined with example mappings and passed to an LLM to produce structured workflow and node descriptions.
+
+5. **Retrieve Relevant Galaxy Tools**  
+   The generated descriptions are used to query the vector store and identify suitable Galaxy tools.
+
+6. **Generate the Galaxy Workflow (`.ga`)**  
+   The selected tools and workflow structure are assembled into a valid Galaxy workflow JSON file and saved as a `.ga` file.
+   
+For a complete usage example, see the demo notebooks below.
 
 
-### Adding Test Data and Contributing
+## Demo Notebooks
 
-To contribute with test data, follow these steps:
+For a quick demonstration of the full pipeline, see:
+- [Demo Notebook](notebooks/demo_notebook.ipynb)
 
-1. **Prepare Equivalent Workflows**
-
-    - Create workflows in both KNIME and Galaxy.
-    - Ensure that each KNIME node corresponds to an equivalent Galaxy tool and in the correct in sequence.
-
-**Example:** For the case of 01_nuclei_segmentation
-
-![KNIME_Workflow.png](src%2Ftest_data%2F01_nuclei_segmentation%2Fpics%2FKNIME_Workflow.png)
-![Galaxy_workflow.png](src%2Ftest_data%2F01_nuclei_segmentation%2Fpics%2FGalaxy_workflow.png)
-
-2. Create a New Test Data Folder
-
-    - Create a new folder for your test case.
-        
-            Example: test_data/01_nuclei_segmentation
-    
-    - Within this folder, create two subfolders:
-        - **workflows:** Store the KNIME and Galaxy workflows in this folder
-        - **pics:** Include a snapshot of the workflows
-
-3. Add workflows and images
-
-    - Place the KNIME and Galaxy workflow files in the workflows folder
-    - Add a screenshot for better documentation.
-
-4. Execute the Code
-
-    - Run the main script to generate the translation table:
-
-`
-python main.py
-`
-
-The translation table will be saved in `src/translation_table`
+For a step-by-step explanation of each component:
+- [Detailed Demo Notebook](notebooks/demo_notebook_detailed.ipynb)
 
 
-### Guidelines for Contributions
+## Project Structure
+```
+imaging_KNIME_to_Galaxy/
+│
+├── src/
+│   └── imaging_knime_to_galaxy/
+│
+├── data/
+│
+├── notebooks/
+│
+└── pyproject.toml
+```
 
-- Ensure workflows are clearly documented
-- Maintain consistent naming conventions for folders and files
-- Verify that the workflows are functional and the tools/nodes are or partially are equivalent
+- `src/` contains the Python package.
+- `data/` contains metadata, examples and generated files.
+- `notebooks/` contains demonstration/evaluation notebooks.
 
+
+## Model & API Requirements
+This project requires access to an LLM backend. The current implementation expects the API key to be available as an environment variable:
+
+```bash
+export SCADSAI_API_KEY=your_key_here
+```
+If you are using a different provider, adapt the environment variable accordingly and update the LLM client configuration in the code.
+
+
+## Validation of generated workflows
+Generated workflows (`.ga`) can be validated using:
+
+```bash
+planemo workflow_lint path/to/workflow.ga
+```
