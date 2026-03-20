@@ -1,0 +1,240 @@
+{
+  "a_galaxy_workflow": "true",
+  "annotation": "",
+  "comments": [],
+  "format-version": "0.1",
+  "name": "KNIME Image Processing Workflow",
+  "readme": "",
+  "report": {
+    "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
+  },
+  "steps": {
+    "0": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 0,
+      "input_connections": {},
+      "inputs": [],
+      "label": null,
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 0.0,
+        "top": 0.0
+      },
+      "tool_id": null,
+      "tool_state": "{\"optional\": false, \"tag\": null}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "7487e8aa-8946-4f1a-840d-7b6a521e3825",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "1": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+      "errors": null,
+      "id": 1,
+      "input_connections": {
+        "input": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Perform histogram equalization",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tiff"
+        }
+      ],
+      "position": {
+        "left": 200.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/imgteam/2d_histogram_equalization/ip_histogram_equalization/0.18.1+galaxy0",
+      "tool_shed_repository": {
+        "changeset_revision": "b1c2c210813c",
+        "name": "2d_histogram_equalization",
+        "owner": "imgteam",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"h_type\": \"clahe\", \"input\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+      "tool_version": "0.18.1+galaxy0",
+      "type": "tool",
+      "uuid": "1a682985-0624-43fc-a29d-45b8b6f5dffa",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "2": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 2,
+      "input_connections": {
+        "input": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Spot Detection (placeholder)",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "image"
+        }
+      ],
+      "position": {
+        "left": 400.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "tool",
+      "uuid": "55283d4c-2e58-477a-aad7-29500e4fba7f",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "3": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 3,
+      "input_connections": {
+        "input": {
+          "id": 2,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Connected Component Analysis (placeholder)",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "label_image"
+        }
+      ],
+      "position": {
+        "left": 600.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "tool",
+      "uuid": "c4c67b76-60a2-42b7-b3ac-affa7a432661",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "4": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 4,
+      "input_connections": {
+        "input": {
+          "id": 3,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Labeling Filter (placeholder)",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "filtered_label_image"
+        }
+      ],
+      "position": {
+        "left": 800.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "tool",
+      "uuid": "bccf4e58-e375-45b0-ae2d-03283c8eaed3",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "5": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 5,
+      "input_connections": {
+        "input": {
+          "id": 4,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "Image Segment Features (placeholder)",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 1000.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "tool",
+      "uuid": "5befa073-fbb2-4400-9c13-f84a536b5fc6",
+      "when": null,
+      "workflow_outputs": []
+    },
+    "6": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 6,
+      "input_connections": {
+        "input": {
+          "id": 5,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "CSV Writer (placeholder)",
+      "outputs": [],
+      "position": {
+        "left": 1200.0,
+        "top": 100.0
+      },
+      "post_job_actions": {},
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "tool",
+      "uuid": "25095da0-b496-409b-b522-169680896f9d",
+      "when": null,
+      "workflow_outputs": []
+    }
+  },
+  "tags": [
+    "bioimaging",
+    "KNIMEtoGalaxy"
+  ],
+  "uuid": "4c1be322-9a20-4a7d-a524-235fa2e9cad7",
+  "version": 0
+}
