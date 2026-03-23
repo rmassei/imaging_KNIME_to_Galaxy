@@ -55,7 +55,7 @@ pip install -e .
 ## How It Works
 
 <p align="center">
-  <img src="knime2galaxy_scheme.png" width="50%">
+  <img src="knime2galaxy_scheme.png" width="80%">
   <br>
   <em>Schematic figure of the KNIME2Galaxy pipeline</em>
 </p>
