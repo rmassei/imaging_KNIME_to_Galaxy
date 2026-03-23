@@ -110,7 +110,8 @@ imaging_KNIME_to_Galaxy/
 
 
 ## Model & API Requirements
-This project requires access to an LLM backend. The current implementation expects the API key to be available as an environment variable:
+This project requires access to an LLM backend and uses the [**openai/gpt-oss-120b**](https://huggingface.co/openai/gpt-oss-120b) model by default.
+The current implementation expects the API key to be available as an environment variable:
 
 ```bash
 export SCADSAI_API_KEY=your_key_here
