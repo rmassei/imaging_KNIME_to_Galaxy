@@ -54,6 +54,12 @@ pip install -e .
 
 ## How It Works
 
+<p align="center">
+  <img src="knime2galaxy_scheme.png" width="50%">
+  <br>
+  <em>Schematic figure of the KNIME2Galaxy pipeline</em>
+</p>
+
 1. **Load Galaxy Tool Metadata**  
    Metadata is loaded and converted into structured text representations.
 
