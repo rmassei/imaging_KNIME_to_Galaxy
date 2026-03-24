@@ -4,20 +4,26 @@ from imaging_knime_to_galaxy.Vectorstore import VectorStore
 from imaging_knime_to_galaxy.rag_functions import build_all_docs, embed, search_store_for_hits
 from imaging_knime_to_galaxy.examples import build_translation_examples, build_workflow_examples
 from imaging_knime_to_galaxy.prompts import build_summary_prompt, build_description_task_prompt, build_task_prompt
+import os
 
 def translate_knime_to_galaxy(
         knwf_path: str,
         tools_metadata_path: str,
         translation_table_path: str,
         workflow_examples_yml_path: str,
-        output_galaxy_workflow_path: str
+        output_galaxy_workflow_path: str,
+        input_workflow_path: str,
+        vector_store_path: str,
 ):
     meta_data = load_tools_metadata(tools_metadata_path)
     texts, metas = build_all_docs(meta_data)
-    vector_store = VectorStore(
-        embed_fn= embed, 
-        texts=texts, 
-        metadatas=metas)
+    if os.path.exists(vector_store_path):
+        print("Loading cached vector store...")
+        vector_store = VectorStore.load(vector_store_path, embed_fn=embed)
+    else:
+        print("Building vector store...")
+        vector_store = VectorStore(embed_fn=embed, texts=texts, metadatas=metas)
+        vector_store.save(vector_store_path)
     
     knime_nodes = collect_knime_node_files(knwf_path=knwf_path)
     workflow_content = collect_workflow_file(knwf_path)
@@ -34,7 +40,7 @@ def translate_knime_to_galaxy(
     description = prompt_scadsai_llm(message= full_description_prompt)
     
     hits = search_store_for_hits(description, vector_store)
-    input_tools = load_galaxy_input_tools()
+    input_tools = load_galaxy_input_tools(input_workflow_path)
     task = build_task_prompt(knime_nodes_str, workflow_content, summary_answer, hits, input_tools)
     full_prompt = f"{node_examples}\n\n{workflow_examples}\n\n{task}"
 

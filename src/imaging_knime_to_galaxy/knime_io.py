@@ -46,8 +46,8 @@ def convert_knime_dict_to_string(node_data: dict) -> str:
 
     return knime_nodes_str
 
-def load_galaxy_input_tools():
-    with open("data/input_workflows.ga", "r", encoding="utf-8") as f:
+def load_galaxy_input_tools(input_tools_path: str):
+    with open(input_tools_path, "r", encoding="utf-8") as f:
         input_tools = json.load(f)
     
     return input_tools

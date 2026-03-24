@@ -22,7 +22,7 @@ def build_doc(owner, name, t):
         t.get("repo_long_description") or "",
         t.get("detailed_description_generated") or ""
     ]
-    # knappe, saubere Repräsentation
+    # short and clean representation
     text = " ".join(" ".join(parts).split())
     meta = {
         "owner": owner,
