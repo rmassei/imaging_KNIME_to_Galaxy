@@ -5,6 +5,8 @@ from imaging_knime_to_galaxy.rag_functions import build_all_docs, embed, search_
 from imaging_knime_to_galaxy.examples import build_translation_examples, build_workflow_examples
 from imaging_knime_to_galaxy.prompts import build_summary_prompt, build_description_task_prompt, build_task_prompt
 import os
+from huggingface_hub import hf_hub_download
+
 
 def translate_knime_to_galaxy(
         knwf_path: str,
@@ -21,9 +23,27 @@ def translate_knime_to_galaxy(
         print("Loading cached vector store...")
         vector_store = VectorStore.load(vector_store_path, embed_fn=embed)
     else:
-        print("Building vector store...")
-        vector_store = VectorStore(embed_fn=embed, texts=texts, metadatas=metas)
-        vector_store.save(vector_store_path)
+        try:
+            print("Local vector store not found. Trying Hugging Face...")
+            
+            downloaded_file = hf_hub_download(
+                repo_id="lea-33/galaxy_tool_vector_storage",
+                filename="vector_store.npz",
+                repo_type="dataset",
+            )
+    
+            vector_store = VectorStore.load(downloaded_file, embed_fn=embed)
+    
+            # Save locally after loading
+            print(f"Saving vector store under: {vector_store_path}")
+            vector_store.save(vector_store_path)
+    
+        except Exception as e:
+            print(f"Could not load vector store from Hugging Face: {e}")
+            print("Building vector store...")
+            
+            vector_store = VectorStore(embed_fn=embed, texts=texts, metadatas=metas)
+            vector_store.save(vector_store_path)
     
     knime_nodes = collect_knime_node_files(knwf_path=knwf_path)
     workflow_content = collect_workflow_file(knwf_path)
