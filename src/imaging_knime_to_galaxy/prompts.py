@@ -138,10 +138,14 @@ The input node descriptions could be one of the following:
 
 {hits}
 
+NEVER come up with own tool IDs, content IDs or versions on your own. ONLY use the ones provided from the previously given knowledge base.
+
 - Use type: "data_input" only for a single dataset that is consumed by inputs expecting a single dataset.
 - Use type: "data_collection_input" only when any downstream input expects a collection (e.g., list or list:paired).
 - Never connect a data_input as a source if the downstream port expects a collection.
 - Never invent an "output" on data_input. If an edge would reference such an output, remove that edge and proceed only with valid edges.
+
+
 
 
 - Return a single JSON object and nothing else.
