@@ -57,10 +57,9 @@ def parse_answer_as_json(answer):
         json_object = json.loads(answer)
         print("Parsed JSON successfully.")
         print(json_object)
+        return json_object
     except json.JSONDecodeError as e:
-        print("Failed to parse JSON:", e)
-
-    return json_object
+        raise ValueError("Failed to parse JSON:", e)
 
 def replace_uuid(json_object):
     if "uuid" in json_object:
