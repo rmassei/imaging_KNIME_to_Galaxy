@@ -12,5 +12,6 @@ dependencies = [
     "jupyterlab",
     "openai",
     "numpy",
-    "planemo"
+    "planemo",
+    "huggingface_hub",
 ]
