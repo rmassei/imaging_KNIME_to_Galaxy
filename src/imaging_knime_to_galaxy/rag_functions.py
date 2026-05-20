@@ -1,5 +1,7 @@
 from imaging_knime_to_galaxy.llm_client import get_client
 
+EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-4B"
+
 def embed(text: str) -> list[float]:
     """
     Creates an embedding vector for the given text.
@@ -11,7 +13,7 @@ def embed(text: str) -> list[float]:
     if not text or not text.strip():
         return []
     client = get_client()
-    response = client.embeddings.create(input=[text], model="Qwen/Qwen3-Embedding-4B")
+    response = client.embeddings.create(input=[text], model=EMBEDDING_MODEL)
     return response.data[0].embedding
 
 def build_doc(owner, name, t):
@@ -22,7 +24,7 @@ def build_doc(owner, name, t):
         t.get("repo_long_description") or "",
         t.get("detailed_description_generated") or ""
     ]
-    # short and clean representation
+
     text = " ".join(" ".join(parts).split())
     meta = {
         "owner": owner,

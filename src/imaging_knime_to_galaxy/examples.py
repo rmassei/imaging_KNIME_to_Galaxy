@@ -5,7 +5,6 @@ from functools import lru_cache
 def load_translation_examples(yaml_path: str = "data/translation_table.yml") -> list:
     with open(yaml_path, "r", encoding="utf-8") as f:
         docs = list(yaml.safe_load_all(f))
-        print(docs)
         examples = []
         for doc in docs[0]:
             knime = doc.get("KNIME")

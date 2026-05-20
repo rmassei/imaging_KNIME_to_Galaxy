@@ -55,8 +55,6 @@ def load_galaxy_input_tools(input_tools_path: str):
 def parse_answer_as_json(answer):
     try: 
         json_object = json.loads(answer)
-        print("Parsed JSON successfully.")
-        print(json_object)
         return json_object
     except json.JSONDecodeError as e:
         raise ValueError("Failed to parse JSON:", e)
