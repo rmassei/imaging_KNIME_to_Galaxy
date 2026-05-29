@@ -61,3 +61,20 @@ class VectorStore:
         if return_scores:
             return [(results[j], float(sims[idx[j]])) for j in range(len(idx))]
         return results
+
+    def save(self, path):
+        np.savez(
+            path,
+            vectors=self.vectors,
+            texts=np.array(self.texts, dtype=object),
+            metadatas=np.array(self.metadatas, dtype=object)
+        )
+
+    @classmethod
+    def load(cls, path, embed_fn):
+        data = np.load(path, allow_pickle=True)
+        obj = cls(embed_fn=embed_fn)
+        obj.vectors = data["vectors"]
+        obj.texts = list(data["texts"])
+        obj.metadatas = list(data["metadatas"])
+        return obj
