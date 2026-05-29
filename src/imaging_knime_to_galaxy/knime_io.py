@@ -72,4 +72,4 @@ def replace_uuid(json_object):
 def save_answer_to_file(json_object, output_path):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(json_object, f, indent=2, ensure_ascii=False)
+        json.dump(json_object, f, indent=2, ensure_ascii=False)
