@@ -2,6 +2,7 @@ import json
 import uuid
 import zipfile
 from pathlib import Path
+import os
 
 def load_tools_metadata(path: str | Path) -> dict:
     """
