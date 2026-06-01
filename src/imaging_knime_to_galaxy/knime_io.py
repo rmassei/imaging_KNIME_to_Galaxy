@@ -2,6 +2,7 @@ import json
 import uuid
 import zipfile
 from pathlib import Path
+import os
 
 def load_tools_metadata(path: str | Path) -> dict:
     """
@@ -70,6 +71,6 @@ def replace_uuid(json_object):
     return json_object
 
 def save_answer_to_file(json_object, output_path):
-    output_file = output_path
-    with open(output_file, "w", encoding="utf-8") as f:
-      json.dump(json_object, f, indent=2, ensure_ascii=False)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(json_object, f, indent=2, ensure_ascii=False)
