@@ -3,9 +3,11 @@ from imaging_knime_to_galaxy.knime_io import load_tools_metadata, collect_knime_
 from imaging_knime_to_galaxy.Vectorstore import VectorStore
 from imaging_knime_to_galaxy.rag_functions import build_all_docs, embed, search_store_for_hits, EMBEDDING_MODEL
 from imaging_knime_to_galaxy.examples import build_translation_examples, build_workflow_examples
-from imaging_knime_to_galaxy.prompts import build_summary_prompt, build_description_task_prompt, build_task_prompt
+from imaging_knime_to_galaxy.prompts import build_summary_prompt, build_description_task_prompt, build_task_prompt, build_report_prompt
+from imaging_knime_to_galaxy.evaluation_functions import add_missing_input_labels, generate_job_yaml, run_command, testing_report, extract_error_message
 import os
 from huggingface_hub import hf_hub_download
+from pathlib import Path
 
 
 def translate_knime_to_galaxy(
@@ -16,6 +18,8 @@ def translate_knime_to_galaxy(
         output_galaxy_workflow_path: str,
         input_workflow_path: str,
         vector_store_path: str,
+        example_image_path="../knime2galaxy_scheme.png",
+
 ):
     meta_data = load_tools_metadata(tools_metadata_path)
     texts, metas = build_all_docs(meta_data)
@@ -82,3 +86,13 @@ def translate_knime_to_galaxy(
     replace_uuid(json_object)
     save_answer_to_file(json_object, output_path=output_galaxy_workflow_path)
     print(f"Saved .ga file to {output_galaxy_workflow_path}.")
+
+    print("Evaluating result and generating report ...")
+    record_dict = testing_report(output_galaxy_workflow_path, knwf_path, "job.yml", example_image_path)
+    report_prompt = build_report_prompt(record_dict, knwf_path, output_galaxy_workflow_path, description, workflow_content, answer, hits)
+    report = prompt_scadsai_llm(message= report_prompt)
+    output_path = Path(output_galaxy_workflow_path)
+    report_path = output_path.parent / f"report_{output_path.stem}.md"
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(report)
+    print(f"Report saved under {report_path}.")
