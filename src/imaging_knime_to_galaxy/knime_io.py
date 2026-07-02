@@ -2,6 +2,7 @@ import json
 import uuid
 import zipfile
 from pathlib import Path
+import os
 
 def load_tools_metadata(path: str | Path) -> dict:
     """
@@ -46,8 +47,8 @@ def convert_knime_dict_to_string(node_data: dict) -> str:
 
     return knime_nodes_str
 
-def load_galaxy_input_tools():
-    with open("data/input_workflows.ga", "r", encoding="utf-8") as f:
+def load_galaxy_input_tools(input_tools_path: str):
+    with open(input_tools_path, "r", encoding="utf-8") as f:
         input_tools = json.load(f)
     
     return input_tools
@@ -55,12 +56,9 @@ def load_galaxy_input_tools():
 def parse_answer_as_json(answer):
     try: 
         json_object = json.loads(answer)
-        print("Parsed JSON successfully.")
-        print(json_object)
+        return json_object
     except json.JSONDecodeError as e:
-        print("Failed to parse JSON:", e)
-
-    return json_object
+        raise ValueError("Failed to parse JSON:", e)
 
 def replace_uuid(json_object):
     if "uuid" in json_object:
@@ -73,6 +71,6 @@ def replace_uuid(json_object):
     return json_object
 
 def save_answer_to_file(json_object, output_path):
-    output_file = output_path
-    with open(output_file, "w", encoding="utf-8") as f:
-      json.dump(json_object, f, indent=2, ensure_ascii=False)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(json_object, f, indent=2, ensure_ascii=False)

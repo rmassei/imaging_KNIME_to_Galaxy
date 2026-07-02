@@ -110,14 +110,51 @@ imaging_KNIME_to_Galaxy/
 
 
 ## Model & API Requirements
-This project requires access to an LLM backend and uses the [**openai/gpt-oss-120b**](https://huggingface.co/openai/gpt-oss-120b) model by default.
-The current implementation expects the API key to be available as an environment variable:
+This project requires access to an LLM backend and embedding model. The default models are:
+- LLM: [**openai/gpt-oss-120b**](https://huggingface.co/openai/gpt-oss-120b)
+- Embedding Model: [**Qwen/Qwen3-Embedding-4B**](https://huggingface.co/Qwen/Qwen3-Embedding-4B)
 
+The current implementation expects the API key to be available as an environment variable.
+
+#### 1. API-Key Configuration
+To store the API key _permanently (suggested)_, use:
 ```bash
-export SCADSAI_API_KEY=your_key_here
+echo 'export SCADSAI_API_KEY="your_key_here"' >> ~/.bashrc
+source ~/.bashrc
 ```
-If you are using a different provider, adapt the environment variable accordingly and update the LLM client configuration in the code.
 
+To store it only for the _current session_, use:
+```bash
+export SCADSAI_API_KEY="your_key_here"
+```
+
+If you are using a different provider, adapt the environment variable accordingly.
+```bash
+echo 'export API_KEY_NAME="your_key_here"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+And to update the LLM client configuration in the code, change the following code snippet in the [llm_client.py script](src/imaging_knime_to_galaxy/llm_client.py):
+```python
+return OpenAI(
+        base_url="https://base-url-of-your-provider",
+        api_key=os.environ.get("API_KEY_NAME"),
+    )
+```
+
+#### 2. LLM Configuration
+The language model is also declared in the [llm_client.py script](src/imaging_knime_to_galaxy/llm_client.py).
+To change the default model to another model, edit this code snippet from the function definition of prompt_scadsai_llm:
+```python
+def prompt_scadsai_llm(message: str, model: str = "your-chosen-llm-here") -> str:
+```
+
+#### 3. Embedding Model Configuration
+The embedding model is declared in the [rag_functions.py script](src/imaging_knime_to_galaxy/rag_functions.py).
+If you want to use another than the default model, change the EMBEDDING_MODEL variable at the top of the script to:
+```python
+EMBEDDING_MODEL = "your-chosen-embedding-model-here"
+```
 
 ## Validation of generated workflows
 Generated workflows (`.ga`) can be validated using:
