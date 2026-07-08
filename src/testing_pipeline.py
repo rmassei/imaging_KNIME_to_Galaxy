@@ -3,152 +3,15 @@ import traceback
 import re
 import pandas as pd
 from imaging_knime_to_galaxy.translate import translate_knime_to_galaxy
+from imaging_knime_to_galaxy.evaluation_functions import add_missing_input_labels, generate_job_yaml, run_command, testing_report, extract_error_message
 import subprocess
 import os
 import json
 import yaml
 
 DATA_FOLDER = Path("../data").resolve()
-KNIME_FOLDER = DATA_FOLDER / "train_data_workflows" / "KNIME_2"
-OUTPUT_FOLDER = DATA_FOLDER / "output_file_test"
-OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
-
 N_RUNS = 1
-INPUT_STEP_TYPES = {"data_input", "data_collection_input", "parameter_input"}
-
-JOB_YML = DATA_FOLDER / "job.yml"
-IMAGE = DATA_FOLDER / "image_ex.jpg"
-
-
-def generate_job_yaml(ga_path, output_path, default_file):
-    ga_path = Path(ga_path)
-    output_path = Path(output_path)
-    default_file = str(Path(default_file).resolve())
-
-    with ga_path.open("r", encoding="utf-8") as f:
-        workflow = json.load(f)
-
-    job = {}
-    for step_id, step in workflow.get("steps", {}).items():
-        if step.get("type") in INPUT_STEP_TYPES:
-            key = step.get("label") or f"input_{step_id}"
-            job[key] = {
-                "class": "File",
-                "path": default_file,
-            }
-
-    if not job:
-        raise ValueError(f"No workflow inputs found in {ga_path}")
-
-    with output_path.open("w", encoding="utf-8") as f:
-        yaml.safe_dump(job, f, sort_keys=False)
-
-    print(f"job.yml written to {output_path}")
-    print(yaml.safe_dump(job, sort_keys=False))
-
-
-def add_missing_input_labels(ga_path: str | Path, output_path: str | Path | None = None):
-    ga_path = Path(ga_path)
-    output_path = ga_path if output_path is None else Path(output_path)
-
-    with ga_path.open("r", encoding="utf-8") as f:
-        workflow = json.load(f)
-
-    steps = workflow.get("steps", {})
-    changed = []
-
-    for step_id, step in steps.items():
-        if step.get("type") in INPUT_STEP_TYPES and not step.get("label"):
-            label = f"input_{step_id}"
-            step["label"] = label
-            changed.append((step_id, label))
-
-    with output_path.open("w", encoding="utf-8") as f:
-        json.dump(workflow, f, indent=2)
-
-    print(f"Patched workflow written to {output_path}")
-    if changed:
-        print("Added labels:")
-        for step_id, label in changed:
-            print(f"  step {step_id} -> {label}")
-    else:
-        print("No missing input labels found.")
-
-
-def normalize_error_message(msg: str) -> str:
-    if not msg:
-        return "UNKNOWN_ERROR"
-
-    msg = msg.strip()
-
-    patterns = [
-        (
-            r"Workflow cannot be run because input step '.*?' \(.*?\) is not optional and no input provided\.",
-            "Missing required workflow input",
-        ),
-        (
-            r"No content id could be located for step .*",
-            "Missing content_id/tool_id",
-        ),
-        (
-            r"File \[.*\] does not exist.*",
-            "Input file does not exist",
-        ),
-        (
-            r"Parameter '.*?': specify a dataset of the required format / build for parameter",
-            "Wrong dataset format for tool parameter",
-        ),
-        (
-            r"No value found for '.*?'\. Using default:",
-            "Missing tool parameter value",
-        ),
-        (
-            r"Java heap space",
-            "KNIME out of memory",
-        ),
-        (
-            r"Node can't be executed - Node .* not available from extension .*",
-            "Missing KNIME extension",
-        ),
-        (
-            r"There were problems with \d+ test\(s\)",
-            "Planemo run/test reported workflow failures",
-        ),
-        (
-            r"Run failed \[.*\]",
-            "Planemo run failed",
-        ),
-    ]
-
-    for pattern, label in patterns:
-        if re.search(pattern, msg, flags=re.DOTALL):
-            return label
-
-    return msg.splitlines()[0][:300]
-
-
-def extract_error_message(exc: Exception) -> str:
-    if exc is None:
-        return "UNKNOWN_ERROR"
-
-    msg = str(exc).strip()
-    if msg:
-        return msg
-
-    return "".join(traceback.format_exception_only(type(exc), exc)).strip()
-
-
-def run_command(cmd: list[str], stage: str) -> subprocess.CompletedProcess:
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    
-    if result.returncode != 0:
-        full_msg = (
-            f"{stage} failed with return code {result.returncode}\n"
-            f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}"
-        )
-        raise RuntimeError(full_msg)
-
-    return result
+KNIME_FOLDER = DATA_FOLDER / "train_data_workflows" / "KNIME_2"
 
 
 def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
@@ -159,7 +22,6 @@ def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
         "status": "success",
         "failed_stage": None,
         "error_raw": None,
-        "error_normalized": None,
         "ga_path": None,
         "ga_labeled_path": None,
         "job_yml_path": str(JOB_YML),
@@ -252,9 +114,8 @@ def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
         record["status"] = "failed"
         record["failed_stage"] = stage
         record["error_raw"] = raw_error
-        record["error_normalized"] = normalize_error_message(raw_error)
         return record
-
+        
 
 def run_batch(knime_folder: Path, n_runs: int) -> pd.DataFrame:
     results = []
@@ -272,7 +133,6 @@ def run_batch(knime_folder: Path, n_runs: int) -> pd.DataFrame:
             print(f"Planemo Result: {result['planemo_stdout']}")
             if result["status"] == "failed":
                 print(f"Failed stage: {result['failed_stage']}")
-                print(f"Error bucket: {result['error_normalized']}")
 
     return pd.DataFrame(results)
 
@@ -280,28 +140,21 @@ def run_batch(knime_folder: Path, n_runs: int) -> pd.DataFrame:
 def summarize_errors(df: pd.DataFrame):
     failed = df[df["status"] == "failed"].copy()
 
-    error_counts = (
-        failed["error_normalized"]
-        .value_counts(dropna=False)
-        .rename_axis("error_type")
-        .reset_index(name="count")
-    )
-
     stage_error_counts = (
-        failed.groupby(["failed_stage", "error_normalized"])
+        failed.groupby(["failed_stage"])
         .size()
         .reset_index(name="count")
         .sort_values(["failed_stage", "count"], ascending=[True, False])
     )
 
     file_error_counts = (
-        failed.groupby(["file_name", "error_normalized"])
+        failed.groupby(["file_name"])
         .size()
         .reset_index(name="count")
         .sort_values(["file_name", "count"], ascending=[True, False])
     )
 
-    return error_counts, stage_error_counts, file_error_counts
+    return stage_error_counts, file_error_counts
 
 
 if __name__ == "__main__":
