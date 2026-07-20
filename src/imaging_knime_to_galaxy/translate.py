@@ -92,7 +92,7 @@ def translate_knime_to_galaxy(
     report_prompt = build_report_prompt(record_dict, knwf_path, output_galaxy_workflow_path, description, workflow_content, answer, hits)
     report = prompt_scadsai_llm(message= report_prompt)
     output_path = Path(output_galaxy_workflow_path)
-    report_path = output_path.parent / f"report_{output_path.stem}.md"
+    report_path = output_path.parent / f"report_{output_path.stem}.html"
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(report)
     print(f"Report saved under {report_path}.")
