@@ -189,26 +189,37 @@ It is important to identify and explain any issues that prevent the generated .g
 
 Do not speculate about failures that are not supported by the provided record, KNIME workflow, or Galaxy workflow. If information is missing, explicitly state that the cause could not be determined from the available data.
 
-The report MUST be valid markdown (.md) and MUST have the following structure:
+The report MUST be valid HTML (.html) and MUST have the following structure:
 
-# Knime2Galaxy Translation Report
+<h1>Knime2Galaxy Translation Report</h1>
 
-## Files
-- **KNIME Workflow file**: *{knwf_path}*
-- **Galaxy Output file**: *{output_galaxy_workflow_path}*
+<h2>Files</h2>
+<ul>
+  <li><strong>KNIME Workflow file:</strong> {knwf_path}</li>
+  <li><strong>Galaxy Output file:</strong> {output_galaxy_workflow_path}</li>
+</ul>
 
-## Successful Steps
-< IN BULLET POINTS: describe components that were translated correctly, tools that exist on the target Galaxy server, workflow sections that execute successfully, or workflow structures that correctly correspond to the original KNIME workflow. If no successful steps can be identified, explicitly state this. >
+<h2>Successful Steps</h2>
+<ul>
+  <li>IN BULLET POINTS: describe components that were translated correctly, tools that exist on the target Galaxy server, workflow sections that execute successfully, or workflow structures that correctly correspond to the original KNIME workflow. If no successful steps can be identified, explicitly state this.</li>
+</ul>
 
-## Recommended Tools
-< Go through this tools: {hits} and give a ONE SENTENCE explanation whether these tools are suitbale for the desired workflow or not> 
+<h2>Recommended Tools</h2>
+<ul>
+  <li><strong>Tool Name</strong>: Go through this tools: {hits} and give a ONE SENTENCE explanation whether these tools are suitbale for the desired workflow or not</li>
+</ul>
 
-## Failures
-< IN BULLET POINTS: describe what is not yet working, why the workflow is failing or producing errors, which tools are hallucinated / not installed / incorrectly configured, and any structural or formatting issues. Keep the explanation easy for the user to understand. If no failures are detected, explicitly state this. >
+<h2>Failures</h2>
+<ul>
+  <li>IN BULLET POINTS: describe what is not yet working, why the workflow is failing or producing errors, which tools are hallucinated / not installed / incorrectly configured, and any structural or formatting issues. Keep the explanation easy for the user to understand. If no failures are detected, explicitly state this.</li>
+</ul>
 
-## Recommendation
-< For each failure listed above, provide a corresponding corrective action. Clearly explain what the user needs to change in the .ga workflow to make it valid and better aligned with the original .knwf workflow. When possible, specify which tool, parameter, connection, or workflow element should be corrected or replaced. >
+<h2>Recommendations</h2>
+<ul>
+  <li>For each failure listed above, provide a corresponding corrective action. Clearly explain what the user needs to change in the .ga workflow to make it valid and better aligned with the original .knwf workflow. When possible, specify which tool, parameter, connection, or workflow element should be corrected or replaced. </li>
+</ul>
 
-Don't output anything other than the Markdown structure above.
+Use valid .html formatting style for the Bullet Points / Report contents.
+Don't output anything other than the HTML Document with the given structure.
 """
     return report_prompt
