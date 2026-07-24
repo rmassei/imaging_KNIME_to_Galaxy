@@ -20,9 +20,6 @@ def build_doc(owner, name, t):
     parts = [
         t.get("name") or name,
         t.get("description") or "",
-        t.get("repo_description") or "",
-        t.get("repo_long_description") or "",
-        t.get("detailed_description_generated") or ""
     ]
 
     text = " ".join(" ".join(parts).split())
