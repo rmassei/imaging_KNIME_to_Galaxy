@@ -6,3 +6,5 @@
 .metadata/
 *.dmp
 vector_store.npz
+.venv/
+.env

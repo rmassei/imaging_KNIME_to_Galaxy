@@ -22,6 +22,24 @@ git clone https://github.com/rmassei/imaging_KNIME_to_Galaxy.git
 cd imaging_KNIME_to_Galaxy
 ```
 
+### Configure environment variables
+
+Create a local `.env` file from the provided template:
+
+```bash
+cp .env.example .env
+```
+
+Add your LLM API key to `.env`:
+
+```env
+LLM_API_KEY=your-api-key
+```
+
+Set your preferred variables in the `.env` file. 
+
+Do not commit the `.env` file. 
+
 ### Create a virtual environment
 
 **Using Python venv**
