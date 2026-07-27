@@ -17,6 +17,8 @@ dependencies = [
     "huggingface_hub",
     "ipywidgets",
     "torch<=2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "pandas>=2.3.3",
+    "pyyaml>=6.0.3",
 ]
 
 [tool.uv]
