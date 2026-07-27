@@ -24,6 +24,12 @@ cd imaging_KNIME_to_Galaxy
 
 ### Create a virtual environment
 
+**Using uv**
+
+```bash
+uv sync
+```
+
 **Using Python venv**
 
 ```bash

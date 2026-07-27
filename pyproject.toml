@@ -16,4 +16,14 @@ dependencies = [
     "sentence-transformers>=2.7.0",
     "huggingface_hub",
     "ipywidgets",
+    "torch<=2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
+
+[tool.uv]
+constraint-dependencies = [
+    "cryptography<49; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
+
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
 ]
