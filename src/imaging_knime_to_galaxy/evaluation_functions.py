@@ -13,7 +13,7 @@ OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 INPUT_STEP_TYPES = {"data_input", "data_collection_input", "parameter_input"}
 
 JOB_YML = DATA_FOLDER / "job.yml"
-IMAGE = DATA_FOLDER / "image_ex.jpg"
+IMAGE = Path("../knime2galaxy_scheme.png").resolve()
 
 
 def generate_job_yaml(ga_path, output_path, default_file):
@@ -76,8 +76,21 @@ def extract_error_message(exc: Exception) -> str:
 
 
 def run_command(cmd: list[str], stage: str) -> subprocess.CompletedProcess:
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    
+
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(
+            f"{stage} did not finish within 3 minutes.\n"
+            f"Partial STDOUT:\n{exc.stdout}\n\n"
+            f"Partial STDERR:\n{exc.stderr}"
+        ) from exc
+
     if result.returncode != 0:
         full_msg = (
             f"{stage} failed with return code {result.returncode}\n"

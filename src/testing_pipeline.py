@@ -12,7 +12,10 @@ import yaml
 DATA_FOLDER = Path("../data").resolve()
 N_RUNS = 1
 KNIME_FOLDER = DATA_FOLDER / "train_data_workflows" / "KNIME_2"
-
+JOB_YML = DATA_FOLDER / "job.yml"
+OUTPUT_FOLDER = DATA_FOLDER / "planemo_test"
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+IMAGE = Path("../knime2galaxy_scheme.png").resolve()
 
 def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
     record = {
@@ -89,6 +92,7 @@ def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
         generate_job_yaml(output_galaxy_workflow_path_labeled, JOB_YML, IMAGE)
 
         stage = "planemo_run"
+        history_name = f"pipeline_{knime_file.stem}_run_{run_idx}"
         if "GALAXY_API_KEY" not in os.environ:
             raise RuntimeError("Environment variable GALAXY_API_KEY is not set")
 
@@ -100,6 +104,7 @@ def run_single_pipeline(knime_file: Path, run_idx: int) -> dict:
             "--engine", "external_galaxy",
             "--galaxy_url", "https://usegalaxy.eu",
             "--galaxy_user_key", os.environ["GALAXY_API_KEY"],
+            "--history_name", history_name,
         ]
 
         planemo_result = run_command(cmd, stage)
@@ -160,13 +165,10 @@ def summarize_errors(df: pd.DataFrame):
 if __name__ == "__main__":
     df_results = run_batch(KNIME_FOLDER, N_RUNS)
 
-    error_counts, stage_error_counts, file_error_counts = summarize_errors(df_results)
+    stage_error_counts, file_error_counts = summarize_errors(df_results)
 
     print("\nOverall status:")
     print(df_results["status"].value_counts())
-
-    print("\nMost common error types:")
-    print(error_counts)
 
     print("\nErrors by stage:")
     print(stage_error_counts)
@@ -174,7 +176,6 @@ if __name__ == "__main__":
     print("\nErrors by file:")
     print(file_error_counts)
 
-    df_results.to_csv(os.path.join(DATA_FOLDER,f"pipeline_n={N_RUNS}_run_results.csv"), index=False)
-    error_counts.to_csv(os.path.join(DATA_FOLDER,f"n={N_RUNS}_error_counts.csv"), index=False)
+    df_results.to_csv(os.path.join(DATA_FOLDER,f"n={N_RUNS}_run_results.csv"), index=False)
     stage_error_counts.to_csv(os.path.join(DATA_FOLDER,f"n={N_RUNS}_stage_error_counts.csv"), index=False)
     file_error_counts.to_csv(os.path.join(DATA_FOLDER,f"n={N_RUNS}_file_error_counts.csv"), index=False)
