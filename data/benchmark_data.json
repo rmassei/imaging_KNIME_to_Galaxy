@@ -1,0 +1,232 @@
+[
+  {
+    "expected_tool_id": "addValue",
+    "expected_tool": "Add column",
+    "query": "Add column to an existing dataset"
+  },
+  {
+    "expected_tool_id": "Add_a_column1",
+    "expected_tool": "Compute",
+    "query": "Compute on rows"
+  },
+  {
+    "expected_tool_id": "tables_arithmetic_operations",
+    "expected_tool": "Arithmetic Operations",
+    "query": "Arithmetic Operations on tables"
+  },
+  {
+    "expected_tool_id": "Convert characters1",
+    "expected_tool": "Convert",
+    "query": "Convert delimiters to TAB"
+  },
+  {
+    "expected_tool_id": "Cut1",
+    "expected_tool": "Cut",
+    "query": "Cut columns from a table"
+  },
+  {
+    "expected_tool_id": "filter_tabular",
+    "expected_tool": "Filter Tabular",
+    "query": "Filter Tabular"
+  },
+  {
+    "expected_tool_id": "tp_easyjoin_tool",
+    "expected_tool": "Join",
+    "query": "Join two files"
+  },
+  {
+    "expected_tool_id": "mergeCols1",
+    "expected_tool": "Merge Columns",
+    "query": "Merge Columns together"
+  },
+  {
+    "expected_tool_id": "Paste1",
+    "expected_tool": "Paste",
+    "query": "Paste two files side by side"
+  },
+  {
+    "expected_tool_id": "tp_find_and_replace",
+    "expected_tool": "Replace",
+    "query": "parts of text"
+  },
+  {
+    "expected_tool_id": "tp_replace_in_line",
+    "expected_tool": "Replace Text",
+    "query": "Replace in entire line"
+  },
+  {
+    "expected_tool_id": "tp_sort_header_tool",
+    "expected_tool": "Sort",
+    "query": "Sort data in ascending or descending order"
+  },
+  {
+    "expected_tool_id": "table_compute",
+    "expected_tool": "Table Compute",
+    "query": "computes operations on table data"
+  },
+  {
+    "expected_tool_id": "collection_column_join",
+    "expected_tool": "Column join",
+    "query": "Column join on multiple datasets"
+  },
+  {
+    "expected_tool_id": "imagej2_noise",
+    "expected_tool": "Add or remove noise",
+    "query": "Add or remove noise with ImageJ2"
+  },
+  {
+    "expected_tool_id": "imagej2_adjust_threshold_binary",
+    "expected_tool": "Adjust threshold",
+    "query": "Adjust threshold with ImageJ2"
+  },
+  {
+    "expected_tool_id": "imagej2_analyze_particles_binary",
+    "expected_tool": "Analyze particles",
+    "query": "Analyze particles with ImageJ2"
+  },
+  {
+    "expected_tool_id": "imagej2_analyze_skeleton",
+    "expected_tool": "Analyze skeleton",
+    "query": "Analyze skeleton with ImageJ2"
+  },
+  {
+    "expected_tool_id": "morphological_operations",
+    "expected_tool": "Morphological operation",
+    "query": "Apply a morphological operation with SciPy"
+  },
+  {
+    "expected_tool_id": "ip_filter_standard",
+    "expected_tool": "Standard image filter",
+    "query": "Apply standard image filter with scipy"
+  },
+  {
+    "expected_tool_id": "colorize_labels",
+    "expected_tool": "Colorize label map",
+    "query": "Colorize label map with NetworkX"
+  },
+  {
+    "expected_tool_id": "ip_mahotas_features",
+    "expected_tool": "Image features",
+    "query": "Compute image features with Mahotas"
+  },
+  {
+    "expected_tool_id": "orientationpy",
+    "expected_tool": "Image orientation",
+    "query": "Compute image orientation with OrientationPy"
+  },
+  {
+    "expected_tool_id": "voronoi_tessellation",
+    "expected_tool": "Voronoi tessellation",
+    "query": "Compute Voronoi tessellation with scikit-image"
+  },
+  {
+    "expected_tool_id": "ip_binary_to_labelimage",
+    "expected_tool": "Binary image to label map conversion",
+    "query": "Convert binary image to label map with giatools"
+  },
+  {
+    "expected_tool_id": "repeat_channels",
+    "expected_tool": "Single-channel to multi-channel conversion",
+    "query": "Convert single-channel to multi-channel image with NumPy"
+  },
+  {
+    "expected_tool_id": "ip_count_objects",
+    "expected_tool": "Count objects in label map",
+    "query": "Count objects in label map"
+  },
+  {
+    "expected_tool_id": "idr_download_by_ids",
+    "expected_tool": "Download IDR/OMERO",
+    "query": "Download IDR/OMERO"
+  },
+  {
+    "expected_tool_id": "imagej2_enhance_contrast",
+    "expected_tool": "Enhance contrast",
+    "query": "Enhance contrast with ImageJ2"
+  },
+  {
+    "expected_tool_id": "ip_2d_feature_extraction",
+    "expected_tool": "Extract image features",
+    "query": "Extract image features with scikit-image"
+  },
+  {
+    "expected_tool_id": "ip_2d_filter_segmentation_by_features",
+    "expected_tool": "Filter label map",
+    "query": "Filter label map by rules with giatools"
+  },
+  {
+    "expected_tool_id": "imagej2_find_maxima",
+    "expected_tool": "Find maxima",
+    "query": "Find maxima with ImageJ2"
+  },
+  {
+    "expected_tool_id": "omero_import",
+    "expected_tool": "OMERO Image Import",
+    "query": "OMERO Image Import with omero-py"
+  },
+  {
+    "expected_tool_id": "imagej2_math",
+    "expected_tool": "Operate on pixels",
+    "query": "Operate on pixels with ImageJ2"
+  },
+  {
+    "expected_tool_id": "ip_overlay_segmentation",
+    "expected_tool": "Overlay Segmentation Mask",
+    "query": "Overlay Segmentation Mask"
+  },
+  {
+    "expected_tool_id": "ip_spot_detection_2d",
+    "expected_tool": "2-D spot detection",
+    "query": "Perform 2-D spot detection"
+  },
+  {
+    "expected_tool_id": "ip_histogram_equalization",
+    "expected_tool": "Histogram equalization",
+    "query": "Perform histogram equalization with scikit-image"
+  },
+  {
+    "expected_tool_id": "imagej2_watershed_binary",
+    "expected_tool": "Segmentation using watershed transformation",
+    "query": "Perform segmentation using watershed transformation with ImageJ2"
+  },
+  {
+    "expected_tool_id": "image_math",
+    "expected_tool": "Arithmetic expressions",
+    "query": "Process images using arithmetic expressions with NumPy"
+  },
+  {
+    "expected_tool_id": "background_removal",
+    "expected_tool": "Remove background",
+    "query": "Remove image background with scikit-image"
+  },
+  {
+    "expected_tool_id": "cellposesam",
+    "expected_tool": "Cell and nucleus segmentation",
+    "query": "Run generalist cell and nucleus segmentation with Cellpose-SAM"
+  },
+  {
+    "expected_tool_id": "imagej2_sharpen",
+    "expected_tool": "Sharpen",
+    "query": "Sharpen with ImageJ2"
+  },
+  {
+    "expected_tool_id": "ip_imageinfo",
+    "expected_tool": "Image info",
+    "query": "Show image info with Bioformats"
+  },
+  {
+    "expected_tool_id": "ip_split_image",
+    "expected_tool": "Split image",
+    "query": "Split image along axes with NumPy"
+  },
+  {
+    "expected_tool_id": "imagecoordinates_flipaxis",
+    "expected_tool": "Switch axis coordinates",
+    "query": "Switch axis coordinates"
+  },
+  {
+    "expected_tool_id": "ip_threshold",
+    "expected_tool": "Threshold image",
+    "query": "Threshold image with scikit-image"
+  }
+]
