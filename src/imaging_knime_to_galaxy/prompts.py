@@ -206,7 +206,7 @@ The report MUST be valid HTML (.html) and MUST have the following structure:
 
 <h2>Recommended Tools</h2>
 <ul>
-  <li><strong>Tool Name</strong>: Go through this tools: {hits} and give a ONE SENTENCE explanation whether these tools are suitbale for the desired workflow or not</li>
+  <li><strong>Tool Name</strong>: Go through these tools: {hits} and give a ONE SENTENCE explanation whether these tools are suitable for the desired workflow or not</li>
 </ul>
 
 <h2>Failures</h2>
