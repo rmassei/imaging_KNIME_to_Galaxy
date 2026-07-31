@@ -7,3 +7,5 @@
 *.dmp
 data/vector_store.npz
 vector_store.npz
+.venv/
+.env

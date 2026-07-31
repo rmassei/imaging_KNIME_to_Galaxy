@@ -1,6 +1,10 @@
+import os
 from imaging_knime_to_galaxy.llm_client import get_client
+from dotenv import load_dotenv
 
-EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-4B"
+load_dotenv()
+
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
 def embed(text: str) -> list[float]:
     """
