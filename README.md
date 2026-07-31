@@ -42,6 +42,12 @@ Do not commit the `.env` file.
 
 ### Create a virtual environment
 
+**Using uv**
+
+```bash
+uv sync
+```
+
 **Using Python venv**
 
 ```bash

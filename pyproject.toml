@@ -16,4 +16,50 @@ dependencies = [
     "sentence-transformers>=2.7.0",
     "huggingface_hub",
     "ipywidgets",
+    "torch<=2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "pandas>=2.3.3",
+    "pyyaml>=6.0.3",
+    "ipykernel>=7.3.0",
+    "python-dotenv>=1.2.2",
 ]
+
+[tool.uv]
+constraint-dependencies = [
+    "cryptography<49; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
+
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
+
+[dependency-groups]
+dev = [
+    "planemo>=0.75.45",
+    "pytest>=9.1.1",
+    "ruff>=0.16.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # Pyflakes
+    "I",   # Import sorting
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "RUF", # Ruff-specific rules
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
