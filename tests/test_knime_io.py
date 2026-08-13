@@ -1,5 +1,6 @@
 from imaging_knime_to_galaxy.knime_io import convert_knime_dict_to_string
 
+
 def test_convert_knime_dict_to_string() -> None:
 
     node_data = {

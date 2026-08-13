@@ -1,13 +1,12 @@
-import json
 import csv
+import json
 import time
-from pathlib import Path
 from difflib import SequenceMatcher
+from pathlib import Path
 
-from imaging_knime_to_galaxy.Vectorstore import VectorStore
-from imaging_knime_to_galaxy.rag_functions import search_store_for_hits, embed
 from imaging_knime_to_galaxy.llm_client import get_client
-
+from imaging_knime_to_galaxy.rag_functions import embed, search_store_for_hits
+from imaging_knime_to_galaxy.Vectorstore import VectorStore
 
 # --------------------------------------------------
 # Config
@@ -21,7 +20,7 @@ RESULTS_FOLDER = DATA_FOLDER / f"FINAL_llm_benchmark_results_runs={N_RUNS}"
 
 RESULTS_FOLDER.mkdir(parents=True, exist_ok=True)
 
-VECTOR_STORE_PATH = STORES_FOLDER / "qwen.npz"  
+VECTOR_STORE_PATH = STORES_FOLDER / "qwen.npz"
 TOP_K = 5
 
 LLM_MODELS = {
@@ -35,15 +34,17 @@ LLM_MODELS = {
 # Data loading
 # --------------------------------------------------
 
+
 def load_benchmark_dataset(path):
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
 # --------------------------------------------------
 # LLM callls
-    
+
 # --------------------------------------------------
+
 
 def call_llm(model_name, prompt):
     client = get_client()
@@ -81,6 +82,7 @@ def call_llm(model_name, prompt):
 # Prompt building
 # --------------------------------------------------
 
+
 def build_rag_prompt(query, retrieved_hits):
     context_blocks = []
 
@@ -89,10 +91,7 @@ def build_rag_prompt(query, retrieved_hits):
 
         tool_id = meta.get("tool_id", "unknown")
         tool_name = (
-            meta.get("name")
-            or meta.get("tool_name")
-            or meta.get("tool")
-            or tool_id
+            meta.get("name") or meta.get("tool_name") or meta.get("tool") or tool_id
         )
 
         context_blocks.append(
@@ -129,11 +128,12 @@ Rules:
 - No not answer in markdown or any unknown format. Just VALID Json.
 """.strip()
 
+
 # --------------------------------------------------
 # Simple automatic metrics
 # --------------------------------------------------
 
-    
+
 def normalize_text(text):
     if not text:
         return ""
@@ -198,9 +198,11 @@ def parse_llm_tool_selection(answer):
             "parse_ok": False,
         }
 
+
 # --------------------------------------------------
 # Benchmark
 # --------------------------------------------------
+
 
 def benchmark_llm(
     llm_label,
@@ -223,9 +225,7 @@ def benchmark_llm(
         query = case["query"]
 
         expected_answer = (
-            case.get("expected_tool")
-            or case.get("expected_tool_id")
-            or ""
+            case.get("expected_tool") or case.get("expected_tool_id") or ""
         )
 
         # retrieve once per benchmark sample
@@ -263,42 +263,37 @@ def benchmark_llm(
             if auto_metrics["similarity"] is not None:
                 similarities.append(auto_metrics["similarity"])
 
-            detailed_results.append({
-                "case_id": case.get("id"),
-                "run_idx": run_idx,
-                "query": query,
-
-                "expected_tool": case.get("expected_tool"),
-                "expected_tool_id": case.get("expected_tool_id"),
-
-                "generated_tool_name": parsed_answer["generated_tool_name"],
-                "generated_tool_id": parsed_answer["generated_tool_id"],
-                "generated_reason": parsed_answer["generated_reason"],
-                "parse_ok": parsed_answer["parse_ok"],
-                "raw_answer": parsed_answer["raw_answer"],
-
-                "latency_ms": latency_ms,
-
-                "retrieved_tools": [
-                    {
-                        "rank": i + 1,
-                        "tool_id": (hit.get("meta") or {}).get("tool_id"),
-                        "tool_name": (
-                            (hit.get("meta") or {}).get("name")
-                            or (hit.get("meta") or {}).get("tool_name")
-                            or (hit.get("meta") or {}).get("tool")
-                        ),
-                    }
-                    for i, hit in enumerate(retrieved_hits)
-                ],
-
-                "retrieved_tool_ids": [
-                    (hit.get("meta") or {}).get("tool_id")
-                    for hit in retrieved_hits
-                ],
-
-                "auto_metrics": auto_metrics,
-            })
+            detailed_results.append(
+                {
+                    "case_id": case.get("id"),
+                    "run_idx": run_idx,
+                    "query": query,
+                    "expected_tool": case.get("expected_tool"),
+                    "expected_tool_id": case.get("expected_tool_id"),
+                    "generated_tool_name": parsed_answer["generated_tool_name"],
+                    "generated_tool_id": parsed_answer["generated_tool_id"],
+                    "generated_reason": parsed_answer["generated_reason"],
+                    "parse_ok": parsed_answer["parse_ok"],
+                    "raw_answer": parsed_answer["raw_answer"],
+                    "latency_ms": latency_ms,
+                    "retrieved_tools": [
+                        {
+                            "rank": i + 1,
+                            "tool_id": (hit.get("meta") or {}).get("tool_id"),
+                            "tool_name": (
+                                (hit.get("meta") or {}).get("name")
+                                or (hit.get("meta") or {}).get("tool_name")
+                                or (hit.get("meta") or {}).get("tool")
+                            ),
+                        }
+                        for i, hit in enumerate(retrieved_hits)
+                    ],
+                    "retrieved_tool_ids": [
+                        (hit.get("meta") or {}).get("tool_id") for hit in retrieved_hits
+                    ],
+                    "auto_metrics": auto_metrics,
+                }
+            )
 
     n_cases = len(benchmark_cases)
 
@@ -310,7 +305,9 @@ def benchmark_llm(
         "exact_match": exact_matches / total_runs if total_runs else 0,
         "contains_expected": contains_matches / total_runs if total_runs else 0,
         "parse_ok_rate": parse_ok_count / total_runs if total_runs else 0,
-        "avg_similarity": sum(similarities) / len(similarities) if similarities else None,
+        "avg_similarity": sum(similarities) / len(similarities)
+        if similarities
+        else None,
         "avg_latency_ms": total_latency / total_runs if total_runs else None,
     }
 
@@ -321,17 +318,16 @@ def benchmark_llm(
 # Saving
 # --------------------------------------------------
 
+
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 def save_summary_csv(path, summaries):
-    fieldnames = sorted({
-        key
-        for summary in summaries.values()
-        for key in summary.keys()
-    })
+    fieldnames = sorted(
+        {key for summary in summaries.values() for key in summary.keys()}
+    )
 
     with open(path, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -344,6 +340,7 @@ def save_summary_csv(path, summaries):
 # --------------------------------------------------
 # Runner
 # --------------------------------------------------
+
 
 def benchmark_all_llms(
     llm_models,
@@ -403,6 +400,7 @@ def print_summary(summaries):
 
         if metrics["avg_latency_ms"] is not None:
             print(f"Avg Latency:        {metrics['avg_latency_ms']:.1f} ms")
+
 
 # --------------------------------------------------
 # Usage

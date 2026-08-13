@@ -1,20 +1,25 @@
 """
-Functions for implementation of a feedback loop within knime2galaxy translation pipeline.
+Functions for implementation of a feedback loop within knime2galaxy
+translation pipeline.
 """
 
-from imaging_knime_to_galaxy.llm_client import prompt_scadsai_llm
 import json
 import os
-import traceback
-from imaging_knime_to_galaxy.knime_io import parse_answer_as_json, replace_uuid, save_answer_to_file
-from pathlib import Path
-from imaging_knime_to_galaxy.translate import translate_knime_to_galaxy
-import subprocess
-import yaml
-from imaging_knime_to_galaxy.knime_io import collect_workflow_file
 import re
+import subprocess
+from pathlib import Path
+
+import yaml
 from bioblend.galaxy import GalaxyInstance
 
+from imaging_knime_to_galaxy.knime_io import (
+    collect_workflow_file,
+    parse_answer_as_json,
+    replace_uuid,
+    save_answer_to_file,
+)
+from imaging_knime_to_galaxy.llm_client import prompt_scadsai_llm
+from imaging_knime_to_galaxy.translate import translate_knime_to_galaxy
 
 INPUT_STEP_TYPES = {"data_input", "data_collection_input", "parameter_input"}
 
@@ -25,11 +30,13 @@ def read_ga_if_exists(path):
     if not os.path.exists(path):
         raise FileNotFoundError(f".ga file does not exist: {path}")
 
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
-def build_error(stage, exc, stdout=None, stderr=None, ga_workflow=None, tb=None, extra=None):
+def build_error(
+    stage, exc, stdout=None, stderr=None, ga_workflow=None, tb=None, extra=None
+):
     return {
         "stage": stage,
         "error_type": type(exc).__name__,
@@ -41,7 +48,7 @@ def build_error(stage, exc, stdout=None, stderr=None, ga_workflow=None, tb=None,
         "extra": extra or {},
     }
 
-    
+
 def send_to_client(event, knime_content):
     prompt = f"""
     You are an expert in translating KNIME workflows to Galaxy workflows (.ga format).
@@ -71,7 +78,8 @@ def send_to_client(event, knime_content):
     
     Important:
     - Use the error information to directly guide the correction.
-    - If a referenced tool, parameter, or connection is invalid or missing, fix or replace it with a valid alternative.
+    - If a referenced tool, parameter, or connection is invalid or missing,
+      fix or replace it with a valid alternative.
 
     Original KNIME workflow content:
     {knime_content}
@@ -91,8 +99,10 @@ def send_to_client_final(event, knime_content):
     You are an expert in translating KNIME workflows to Galaxy workflows (.ga format).
     A Galaxy workflow was generated from a KNIME workflow but contains errors. 
     
-    This is the FINAL step after multiple failed automatic repair attempts. Do NOT try to fix the workflow.
-    Instead, explain clearly what is wrong and what must be changed so the workflow can run successfully.
+    This is the FINAL step after multiple failed automatic repair attempts.
+    Do NOT try to fix the workflow.
+    Instead, explain clearly what is wrong and what must be changed so the
+    workflow can run successfully.
     
     Respond in this format:
     
@@ -102,8 +112,10 @@ def send_to_client_final(event, knime_content):
     Solution:
     - bullet points describing exactly what needs to be changed or done
     
-    If the issue cannot be fixed by editing the .ga file alone (e.g. missing Galaxy tools), say so explicitly.
-    Keep the answer concise and as short as possible. No explanations outside the bullet points.
+    If the issue cannot be fixed by editing the .ga file alone
+    (e.g. missing Galaxy tools), say so explicitly.
+    Keep the answer concise and as short as possible. No explanations outside
+    the bullet points.
     
     KNIME workflow:
     {knime_content}
@@ -114,7 +126,7 @@ def send_to_client_final(event, knime_content):
     response = prompt_scadsai_llm(prompt)
     print("LLM RESPONSE:\n", response)
     return response
-    
+
 
 def run_stage(
     stage_name,
@@ -165,7 +177,7 @@ def run_command(cmd: list[str]) -> subprocess.CompletedProcess:
 
     return result
 
-    
+
 def generate_job_yaml(ga_path, output_path, default_file):
     ga_path = Path(ga_path)
     output_path = Path(output_path)
@@ -193,7 +205,9 @@ def generate_job_yaml(ga_path, output_path, default_file):
     print(yaml.safe_dump(job, sort_keys=False))
 
 
-def add_missing_input_labels(ga_path: str | Path, output_path: str | Path | None = None):
+def add_missing_input_labels(
+    ga_path: str | Path, output_path: str | Path | None = None
+):
     ga_path = Path(ga_path)
     output_path = ga_path if output_path is None else Path(output_path)
 
@@ -231,7 +245,9 @@ def extract_invocation_id(planemo_stdout: str) -> str | None:
     return None
 
 
-def fetch_galaxy_invocation_debug(invocation_id: str, galaxy_url: str, api_key: str) -> dict:
+def fetch_galaxy_invocation_debug(
+    invocation_id: str, galaxy_url: str, api_key: str
+) -> dict:
     gi = GalaxyInstance(url=galaxy_url, key=api_key)
 
     debug = {
@@ -254,8 +270,7 @@ def fetch_galaxy_invocation_debug(invocation_id: str, galaxy_url: str, api_key: 
     # Try to get more detailed step data via raw GET
     try:
         raw_steps = gi.make_get_request(
-            f"{gi.url}/api/invocations/{invocation_id}",
-            params={"step_details": True}
+            f"{gi.url}/api/invocations/{invocation_id}", params={"step_details": True}
         )
         debug["invocation_steps"] = raw_steps.get("steps")
     except Exception as exc:
@@ -274,7 +289,7 @@ def fetch_galaxy_invocation_debug(invocation_id: str, galaxy_url: str, api_key: 
                 continue
 
             # Depending on Galaxy version, job info may appear in different places
-            if "job_id" in step and step["job_id"]:
+            if step.get("job_id"):
                 job_ids.add(step["job_id"])
 
             jobs = step.get("jobs", [])
@@ -292,7 +307,7 @@ def fetch_galaxy_invocation_debug(invocation_id: str, galaxy_url: str, api_key: 
             debug["fetch_errors"].append(f"show_job failed for {job_id}: {exc}")
 
     return debug
-    
+
 
 def translate_feedback(
     knwf_path,
@@ -380,13 +395,17 @@ def translate_feedback(
 
         try:
             stage = "workflow_lint"
-            lint_result = run_command([
-                "planemo",
-                "workflow_lint",
-                "--report_level", "error",
-                "--fail_level", "error",
-                str(current_ga_path),
-            ])
+            lint_result = run_command(
+                [
+                    "planemo",
+                    "workflow_lint",
+                    "--report_level",
+                    "error",
+                    "--fail_level",
+                    "error",
+                    str(current_ga_path),
+                ]
+            )
             record["lint_stdout"] = lint_result.stdout
             record["lint_stderr"] = lint_result.stderr
 
@@ -435,21 +454,26 @@ def translate_feedback(
 
             generate_job_yaml(labeled_path, job_yml_path, input_image_path)
 
-            planemo_result = run_command([
-                "planemo",
-                "run",
-                str(labeled_path),
-                str(job_yml_path),
-                "--engine", "external_galaxy",
-                "--galaxy_url", "https://usegalaxy.eu",
-                "--galaxy_user_key", os.environ["GALAXY_API_KEY"],
-            ])
+            planemo_result = run_command(
+                [
+                    "planemo",
+                    "run",
+                    str(labeled_path),
+                    str(job_yml_path),
+                    "--engine",
+                    "external_galaxy",
+                    "--galaxy_url",
+                    "https://usegalaxy.eu",
+                    "--galaxy_user_key",
+                    os.environ["GALAXY_API_KEY"],
+                ]
+            )
             record["planemo_stdout"] = planemo_result.stdout
             record["planemo_stderr"] = planemo_result.stderr
 
             if planemo_result.returncode != 0:
                 invocation_id = extract_invocation_id(planemo_result.stdout)
-                
+
                 galaxy_debug = None
                 if invocation_id:
                     try:
@@ -463,7 +487,7 @@ def translate_feedback(
                             "invocation_id": invocation_id,
                             "fetch_error": str(debug_exc),
                         }
-                        
+
                 err = build_error(
                     stage,
                     RuntimeError("planemo run failed"),
@@ -503,8 +527,10 @@ def translate_feedback(
 
     # send the last error information to the LLM to get back advice
     response = send_to_client_final({"type": "error", "data": err}, knime_content)
-    
-    record["failed_stage"] = record["iterations"][-1]["failed_stage"] if record["iterations"] else None
+
+    record["failed_stage"] = (
+        record["iterations"][-1]["failed_stage"] if record["iterations"] else None
+    )
     record["error_raw"] = f"Maximum iterations ({max_iterations}) reached"
     record["suggestion"] = response
     return record

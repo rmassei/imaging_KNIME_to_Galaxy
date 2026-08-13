@@ -1,10 +1,13 @@
 import os
-from imaging_knime_to_galaxy.llm_client import get_client
+
 from dotenv import load_dotenv
+
+from imaging_knime_to_galaxy.llm_client import get_client
 
 load_dotenv()
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
+
 
 def embed(text: str) -> list[float]:
     """
@@ -19,6 +22,7 @@ def embed(text: str) -> list[float]:
     client = get_client()
     response = client.embeddings.create(input=[text], model=EMBEDDING_MODEL)
     return response.data[0].embedding
+
 
 def build_doc(owner, name, t):
     parts = [
@@ -36,6 +40,7 @@ def build_doc(owner, name, t):
     }
     return text, meta
 
+
 def build_all_docs(data):
     texts, metas = [], []
     for entry in data:
@@ -47,9 +52,10 @@ def build_all_docs(data):
                 metas.append(m)
     return texts, metas
 
+
 def search_store_for_hits(description, vector_store):
     steps = [s.strip() for s in description.split(";") if s.strip()]
     for step in steps:
         hits = vector_store.search(step, k=10)
-    
+
     return hits
