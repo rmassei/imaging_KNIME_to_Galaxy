@@ -1,25 +1,28 @@
-import json
-import time
+import asyncio
 import csv
-from pathlib import Path
-from typing import Callable, Any
-from imaging_knime_to_galaxy.rag_functions import search_store_for_hits
-import requests
+import inspect
+import json
 import os
+import time
+from collections.abc import Callable
+from pathlib import Path
+from typing import Any
+
+import requests
 from llama_index.core import Settings, StorageContext, load_index_from_storage
-from openai import OpenAI as OpenAIClient
 from llama_index.core.embeddings import BaseEmbedding
 from llama_index.llms.openai_like import OpenAILike
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-import asyncio
-import inspect
+from openai import OpenAI as OpenAIClient
+
+from imaging_knime_to_galaxy.rag_functions import embed, search_store_for_hits
 from imaging_knime_to_galaxy.Vectorstore import VectorStore
-from imaging_knime_to_galaxy.rag_functions import embed
 
 # -------------------------------------------------------------------
 # Helper functions
 # -------------------------------------------------------------------
+
 
 def extract_tools(result):
     """
@@ -32,7 +35,7 @@ def extract_tools(result):
 
     return payload.get("data", [])
 
-    
+
 async def mcp_search_tools_by_name(query: str, max_tools: int = 5) -> list[dict]:
 
     server_params = StdioServerParameters(
@@ -58,11 +61,13 @@ async def mcp_search_tools_by_name(query: str, max_tools: int = 5) -> list[dict]
             raw_tools = extract_tools(result)
 
             for tool in raw_tools[:max_tools]:
-                results.append({
-                    "tool_id": tool.get("id"),
-                    "tool_name": tool.get("name", ""),
-                    "description": tool.get("description", ""),
-                })
+                results.append(
+                    {
+                        "tool_id": tool.get("id"),
+                        "tool_name": tool.get("name", ""),
+                        "description": tool.get("description", ""),
+                    }
+                )
 
     return results
 
@@ -73,10 +78,14 @@ class CustomEmbedding(BaseEmbedding):
     model: str = "Qwen/Qwen3-Embedding-4B"
 
     def _get_text_embedding(self, text: str) -> list[float]:
-        return self.client.embeddings.create(
-            model=self.model,
-            input=text,
-        ).data[0].embedding
+        return (
+            self.client.embeddings.create(
+                model=self.model,
+                input=text,
+            )
+            .data[0]
+            .embedding
+        )
 
     def _get_query_embedding(self, query: str) -> list[float]:
         return self._get_text_embedding(query)
@@ -93,7 +102,7 @@ class CustomEmbedding(BaseEmbedding):
 
     async def _aget_query_embedding(self, query: str) -> list[float]:
         return self._get_query_embedding(query)
-        
+
 
 # -------------------------------------------------------------------
 # Config
@@ -103,7 +112,7 @@ DATA_FOLDER = Path("../../data").resolve()
 BENCHMARK_PATH = DATA_FOLDER / "benchmark_data.json"
 RESULTS_FOLDER = DATA_FOLDER / "FINAL_tool_retrieval_benchmark_results"
 RESULTS_FOLDER.mkdir(parents=True, exist_ok=True)
-VS_PATH = DATA_FOLDER/ "vector_stores/qwen.npz"
+VS_PATH = DATA_FOLDER / "vector_stores/qwen.npz"
 vector_store = VectorStore.load(VS_PATH, embed_fn=embed)
 
 K = 5
@@ -138,20 +147,22 @@ if os.path.exists("./../storage"):
     index = load_index_from_storage(storage_context)
 else:
     raise FileNotFoundError("No valid Llama Index found at ./../storage")
-        
+
 
 # -------------------------------------------------------------------
 # Loading benchmark cases
 # -------------------------------------------------------------------
 
+
 def load_benchmark_dataset(path):
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
 # -------------------------------------------------------------------
 # Normalization
 # -------------------------------------------------------------------
+
 
 def normalize_tool_id(tool_id: str | None) -> str | None:
     if not tool_id:
@@ -160,7 +171,8 @@ def normalize_tool_id(tool_id: str | None) -> str | None:
     tool_id = tool_id.strip()
 
     # Full ToolShed ID:
-    # toolshed.g2.bx.psu.edu/repos/bgruening/sklearn_nn_classifier/sklearn_nn_classifier/1.0.11.2
+    # toolshed.g2.bx.psu.edu/repos/bgruening/sklearn_nn_classifier/
+    # sklearn_nn_classifier/1.0.11.2
     parts = tool_id.split("/")
 
     if tool_id.startswith("toolshed.") and len(parts) >= 2:
@@ -204,7 +216,11 @@ def retrieve_with_galaxy_server(query: str, k: int = 5) -> list[dict]:
     Query Galaxy.eu / Galaxy server directly.
     """
 
-    response = requests.get(f"{base_url}/api/tools",params={"q": query},headers={"x-api-key": api_key},)
+    response = requests.get(
+        f"{base_url}/api/tools",
+        params={"q": query},
+        headers={"x-api-key": api_key},
+    )
     response.raise_for_status()
     tools = response.json()
 
@@ -220,11 +236,13 @@ def retrieve_with_galaxy_server(query: str, k: int = 5) -> list[dict]:
 
         detail = detail_response.json()
 
-        results.append({
-            "tool_id": detail.get("id", tool_id),
-            "tool_name": detail.get("name", ""),
-            "description": detail.get("description", ""),
-        })
+        results.append(
+            {
+                "tool_id": detail.get("id", tool_id),
+                "tool_name": detail.get("name", ""),
+                "description": detail.get("description", ""),
+            }
+        )
 
     return results
 
@@ -244,9 +262,9 @@ def retrieve_with_llamaIndex(query: str, k: int = 5) -> list[dict]:
     Strategy 4:
     Query Llama Index for tool retrieval.
     """
-    #Create a query engine
-    qe = index.as_query_engine(response_mode="compact")    
-    
+    # Create a query engine
+    qe = index.as_query_engine(response_mode="compact")
+
     # Ask questions
     q = f"""
     Find the {k} tools that best match the following description: {query}
@@ -276,6 +294,7 @@ def retrieve_with_llamaIndex(query: str, k: int = 5) -> list[dict]:
 # Evaluation
 # -------------------------------------------------------------------
 
+
 def evaluate_strategy(
     name: str,
     retrieve_fn: Callable[[str, int], list[dict]],
@@ -301,15 +320,16 @@ def evaluate_strategy(
         started = time.perf_counter()
 
         try:
-            #retrieved_tools = retrieve_fn(query, k)
-            retrieved_tools = asyncio.run(retrieve_fn(query, k)) if inspect.iscoroutinefunction(retrieve_fn) else retrieve_fn(query, k)
+            # retrieved_tools = retrieve_fn(query, k)
+            retrieved_tools = (
+                asyncio.run(retrieve_fn(query, k))
+                if inspect.iscoroutinefunction(retrieve_fn)
+                else retrieve_fn(query, k)
+            )
             latency_ms = (time.perf_counter() - started) * 1000
             total_latency += latency_ms
 
-            retrieved_tool_ids = [
-                tool.get("tool_id")
-                for tool in retrieved_tools[:k]
-            ]
+            retrieved_tool_ids = [tool.get("tool_id") for tool in retrieved_tools[:k]]
 
             rank = compute_rank(
                 retrieved_tool_ids,
@@ -337,28 +357,28 @@ def evaluate_strategy(
         if rank is not None and rank <= 5:
             hit_at_5 += 1
 
-        reciprocal_ranks.append(
-            1 / rank if rank is not None else 0
-        )
+        reciprocal_ranks.append(1 / rank if rank is not None else 0)
 
-        detailed_results.append({
-            "strategy": name,
-            "case_id": case_id,
-            "query": query,
-            "expected_tool_id": expected_tool_id,
-            "expected_tool_normalized": normalize_tool_id(expected_tool_id),
-            "retrieved_tool_ids": retrieved_tool_ids,
-            "retrieved_tool_ids_normalized": [
-                normalize_tool_id(t) for t in retrieved_tool_ids
-            ],
-            "retrieved_tools": retrieved_tools,
-            "rank": rank,
-            "hit_at_1": rank == 1,
-            "hit_at_3": rank is not None and rank <= 3,
-            "hit_at_5": rank is not None and rank <= 5,
-            "latency_ms": latency_ms,
-            "error": error,
-        })
+        detailed_results.append(
+            {
+                "strategy": name,
+                "case_id": case_id,
+                "query": query,
+                "expected_tool_id": expected_tool_id,
+                "expected_tool_normalized": normalize_tool_id(expected_tool_id),
+                "retrieved_tool_ids": retrieved_tool_ids,
+                "retrieved_tool_ids_normalized": [
+                    normalize_tool_id(t) for t in retrieved_tool_ids
+                ],
+                "retrieved_tools": retrieved_tools,
+                "rank": rank,
+                "hit_at_1": rank == 1,
+                "hit_at_3": rank is not None and rank <= 3,
+                "hit_at_5": rank is not None and rank <= 5,
+                "latency_ms": latency_ms,
+                "error": error,
+            }
+        )
 
     n = len(benchmark_cases)
 
@@ -379,6 +399,7 @@ def evaluate_strategy(
 # -------------------------------------------------------------------
 # Saving
 # -------------------------------------------------------------------
+
 
 def save_json(path: Path, data: Any):
     with open(path, "w", encoding="utf-8") as f:
@@ -414,6 +435,7 @@ def save_summary_csv(path: Path, rows: list[dict]):
 # -------------------------------------------------------------------
 # Main benchmark
 # -------------------------------------------------------------------
+
 
 def run_benchmark():
     benchmark_cases = load_benchmark_dataset(BENCHMARK_PATH)

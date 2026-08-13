@@ -161,9 +161,9 @@ source ~/.bashrc
 And to update the LLM client configuration in the code, change the following code snippet in the [llm_client.py script](src/imaging_knime_to_galaxy/llm_client.py):
 ```python
 return OpenAI(
-        base_url="https://base-url-of-your-provider",
-        api_key=os.environ.get("API_KEY_NAME"),
-    )
+    base_url="https://base-url-of-your-provider",
+    api_key=os.environ.get("API_KEY_NAME"),
+)
 ```
 
 #### 2. LLM Configuration

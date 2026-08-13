@@ -1,8 +1,10 @@
 import numpy as np
 
+
 class VectorStore:
-    def __init__(self, embed_fn, texts=None, metadatas=None,
-                 dtype=np.float32, normalize=True):
+    def __init__(
+        self, embed_fn, texts=None, metadatas=None, dtype=np.float32, normalize=True
+    ):
         self.embed_fn = embed_fn
         self.dtype = dtype
         self.normalize = normalize
@@ -41,23 +43,20 @@ class VectorStore:
             if M.shape[1] != self.vectors.shape[1]:
                 raise ValueError("All embeddings need to have the same shape.")
             self.vectors = np.vstack([self.vectors, M])
-        self.texts.extend(texts[:len(embs)])
-        self.metadatas.extend(metadatas[:len(embs)])
+        self.texts.extend(texts[: len(embs)])
+        self.metadatas.extend(metadatas[: len(embs)])
 
     def search(self, query, k=3, return_scores=False):
         if len(self.texts) == 0:
-            return [] if not return_scores else []
+            return []
         q = self._prep_vec(self.embed_fn(query))
         if self.vectors.size == 0:
-            return [] if not return_scores else []
+            return []
         sims = self.vectors @ q
         k = min(k, len(self.texts))
         idx = np.argpartition(-sims, k - 1)[:k]
         idx = idx[np.argsort(-sims[idx])]
-        results = [
-            {"text": self.texts[i], "meta": self.metadatas[i]}
-            for i in idx
-        ]
+        results = [{"text": self.texts[i], "meta": self.metadatas[i]} for i in idx]
         if return_scores:
             return [(results[j], float(sims[idx[j]])) for j in range(len(idx))]
         return results
@@ -67,7 +66,7 @@ class VectorStore:
             path,
             vectors=self.vectors,
             texts=np.array(self.texts, dtype=object),
-            metadatas=np.array(self.metadatas, dtype=object)
+            metadatas=np.array(self.metadatas, dtype=object),
         )
 
     @classmethod

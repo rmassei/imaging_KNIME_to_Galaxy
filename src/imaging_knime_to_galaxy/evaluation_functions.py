@@ -1,10 +1,9 @@
-from pathlib import Path
-import traceback
-import re
-import pandas as pd
-import subprocess
-import os
 import json
+import os
+import subprocess
+import traceback
+from pathlib import Path
+
 import yaml
 
 DATA_FOLDER = Path("../data").resolve()
@@ -42,7 +41,9 @@ def generate_job_yaml(ga_path, output_path, default_file):
     print(f"job.yml written to {output_path}")
 
 
-def add_missing_input_labels(ga_path: str | Path, output_path: str | Path | None = None):
+def add_missing_input_labels(
+    ga_path: str | Path, output_path: str | Path | None = None
+):
     ga_path = Path(ga_path)
     output_path = ga_path if output_path is None else Path(output_path)
 
@@ -63,7 +64,7 @@ def add_missing_input_labels(ga_path: str | Path, output_path: str | Path | None
 
     print(f"Updated workflow with new input labels written to {output_path}")
 
-    
+
 def extract_error_message(exc: Exception) -> str:
     if exc is None:
         return "UNKNOWN_ERROR"
@@ -128,15 +129,19 @@ def testing_report(
 
     try:
         output_galaxy_workflow_path = Path(output_galaxy_workflow_path)
-        output_galaxy_workflow_path_labeled = output_galaxy_workflow_path.with_name(f"{output_galaxy_workflow_path.stem}_labeled.ga")
+        output_galaxy_workflow_path_labeled = output_galaxy_workflow_path.with_name(
+            f"{output_galaxy_workflow_path.stem}_labeled.ga"
+        )
 
         stage = "workflow_lint"
         lint_result = run_command(
             [
                 "planemo",
                 "workflow_lint",
-                "--report_level", "error",
-                "--fail_level", "error",
+                "--report_level",
+                "error",
+                "--fail_level",
+                "error",
                 str(output_galaxy_workflow_path),
             ],
             stage,
@@ -166,9 +171,7 @@ def testing_report(
 
         stage = "generate_job_yml"
         if not input_image_path.exists():
-            raise FileNotFoundError(
-                f"Input image does not exist: {input_image_path}"
-            )
+            raise FileNotFoundError(f"Input image does not exist: {input_image_path}")
 
         generate_job_yaml(
             output_galaxy_workflow_path_labeled,
@@ -178,18 +181,19 @@ def testing_report(
 
         stage = "planemo_run"
         if "GALAXY_API_KEY" not in os.environ:
-            raise RuntimeError(
-                "Environment variable GALAXY_API_KEY is not set"
-            )
+            raise RuntimeError("Environment variable GALAXY_API_KEY is not set")
 
         cmd = [
             "planemo",
             "run",
             str(output_galaxy_workflow_path_labeled),
             str(job_yml_path),
-            "--engine", "external_galaxy",
-            "--galaxy_url", "https://usegalaxy.eu",
-            "--galaxy_user_key", os.environ["GALAXY_API_KEY"],
+            "--engine",
+            "external_galaxy",
+            "--galaxy_url",
+            "https://usegalaxy.eu",
+            "--galaxy_user_key",
+            os.environ["GALAXY_API_KEY"],
         ]
 
         planemo_result = run_command(cmd, stage)

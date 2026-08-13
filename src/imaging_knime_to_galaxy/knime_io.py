@@ -1,8 +1,9 @@
 import json
+import os
 import uuid
 import zipfile
 from pathlib import Path
-import os
+
 
 def load_tools_metadata(path: str | Path) -> dict:
     """
@@ -10,9 +11,10 @@ def load_tools_metadata(path: str | Path) -> dict:
 
     path: Path to the JSON file.
     """
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
-    
+
+
 def collect_knime_node_files(knwf_path: str) -> dict:
     """
     Collects all node settings.xml files inside the KNIME .knwf archive.
@@ -28,6 +30,7 @@ def collect_knime_node_files(knwf_path: str) -> dict:
                     node_data[node_name] = xml_content
     return node_data
 
+
 def collect_workflow_file(knwf_path: str) -> str:
     """
     Extracts the content of the workflow.knime file inside the KNIME .knwf archive.
@@ -40,35 +43,41 @@ def collect_workflow_file(knwf_path: str) -> str:
                     return f.read().decode("utf-8")
     raise FileNotFoundError("workflow.knime not found in KNWF archive")
 
+
 def convert_knime_dict_to_string(node_data: dict) -> str:
-    
+
     knime_nodes_str = "\n".join(
-    f"Node ID: {key}\n{value}" for key, value in node_data.items())
+        f"Node ID: {key}\n{value}" for key, value in node_data.items()
+    )
 
     return knime_nodes_str
 
+
 def load_galaxy_input_tools(input_tools_path: str):
-    with open(input_tools_path, "r", encoding="utf-8") as f:
+    with open(input_tools_path, encoding="utf-8") as f:
         input_tools = json.load(f)
-    
+
     return input_tools
 
+
 def parse_answer_as_json(answer):
-    try: 
+    try:
         json_object = json.loads(answer)
         return json_object
     except json.JSONDecodeError as e:
-        raise ValueError("Failed to parse JSON:", e)
+        raise ValueError("Failed to parse JSON:", e) from e
+
 
 def replace_uuid(json_object):
     if "uuid" in json_object:
         json_object["uuid"] = str(uuid.uuid4())
-    
+
     for step in json_object["steps"].values():
         if isinstance(step, dict) and "uuid" in step:
             step["uuid"] = str(uuid.uuid4())
-    
+
     return json_object
+
 
 def save_answer_to_file(json_object, output_path):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
