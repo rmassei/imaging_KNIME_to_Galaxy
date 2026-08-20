@@ -76,6 +76,25 @@ conda activate knime2galaxy
 pip install -e .
 ```
 
+## Command-Line Usage
+
+After installing the package, the translation pipeline can be run through the
+`knime2galaxy` command:
+
+```bash
+uv run knime2galaxy translate \
+  --knwf data/file_to_translate/2025_03_2D_spot_detection.knwf \
+  --tools-metadata data/tools_metadata.json \
+  --translation-table data/translation_table.yml \
+  --workflow-examples data/workflow_translation_table.yml \
+  --output data/output_file/translated_workflow.ga \
+  --input-workflow data/input_workflows.ga \
+  --vector-store data/vector_store.npz \
+  --example-image knime2galaxy_scheme.png
+```
+
+Use `uv run knime2galaxy translate --help` to see all available options.
+
 ## How It Works
 
 <p align="center">
