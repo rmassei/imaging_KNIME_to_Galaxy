@@ -53,9 +53,25 @@ def build_all_docs(data):
     return texts, metas
 
 
-def search_store_for_hits(description, vector_store):
+def search_store_for_hits(description, vector_store, k=10):
+    """
+    Collects candidate Galaxy tools for every step of the description.
+
+    The description is a ';'-separated list of workflow steps. Returns the
+    union of the top-k hits over all steps, de-duplicated by tool guid and
+    keeping the order in which the steps were retrieved.
+    """
     steps = [s.strip() for s in description.split(";") if s.strip()]
+
+    hits = []
+    seen = set()
     for step in steps:
-        hits = vector_store.search(step, k=10)
+        for hit in vector_store.search(step, k=k):
+            meta = hit.get("meta") or {}
+            key = meta.get("guid") or hit.get("text")
+            if key in seen:
+                continue
+            seen.add(key)
+            hits.append(hit)
 
     return hits
