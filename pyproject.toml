@@ -23,6 +23,9 @@ dependencies = [
     "python-dotenv>=1.2.2",
 ]
 
+[project.scripts]
+knime2galaxy = "imaging_knime_to_galaxy.cli:main"
+
 [tool.uv]
 constraint-dependencies = [
     "cryptography<49; sys_platform == 'darwin' and platform_machine == 'x86_64'",
