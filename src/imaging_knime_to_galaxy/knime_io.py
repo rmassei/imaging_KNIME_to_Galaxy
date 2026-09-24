@@ -11,9 +11,7 @@ def _strip_common_archive_root(file_names: list[str], file_name: str) -> str:
     """
     path_parts = PurePosixPath(file_name).parts
     roots = {
-        PurePosixPath(name).parts[0]
-        for name in file_names
-        if PurePosixPath(name).parts
+        PurePosixPath(name).parts[0] for name in file_names if PurePosixPath(name).parts
     }
 
     if len(roots) == 1 and len(path_parts) > 1:
