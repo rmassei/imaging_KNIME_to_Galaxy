@@ -2,7 +2,24 @@ import json
 import os
 import uuid
 import zipfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+
+
+def _strip_common_archive_root(file_names: list[str], file_name: str) -> str:
+    """
+    Removes the single top-level workflow folder used by KNWF archives.
+    """
+    path_parts = PurePosixPath(file_name).parts
+    roots = {
+        PurePosixPath(name).parts[0]
+        for name in file_names
+        if PurePosixPath(name).parts
+    }
+
+    if len(roots) == 1 and len(path_parts) > 1:
+        return str(PurePosixPath(*path_parts[1:]))
+
+    return file_name
 
 
 def load_tools_metadata(path: str | Path) -> dict:
@@ -18,29 +35,50 @@ def load_tools_metadata(path: str | Path) -> dict:
 def collect_knime_node_files(knwf_path: str) -> dict:
     """
     Collects all node settings.xml files inside the KNIME .knwf archive.
-    Returns a dictionary: {node_folder_name: xml_content}.
+    Returns a dictionary: {node_path: xml_content}.
     """
     node_data = {}
     with zipfile.ZipFile(knwf_path, "r") as zf:
-        for file_name in zf.namelist():
+        file_names = zf.namelist()
+        for file_name in sorted(file_names):
             if file_name.endswith("settings.xml"):
                 with zf.open(file_name) as f:
                     xml_content = f.read().decode("utf-8")
-                    node_name = file_name.split("/")[-2]  # Ordnername
-                    node_data[node_name] = xml_content
+                    relative_file_name = _strip_common_archive_root(
+                        file_names, file_name
+                    )
+                    node_path = PurePosixPath(relative_file_name).parent.as_posix()
+                    node_data[node_path] = xml_content
     return node_data
 
 
 def collect_workflow_file(knwf_path: str) -> str:
     """
-    Extracts the content of the workflow.knime file inside the KNIME .knwf archive.
+    Extracts workflow.knime content inside the KNIME .knwf archive.
+    Nested workflow.knime files from components and metanodes are included too.
     Returns the file content as a string.
     """
+    workflow_data = []
     with zipfile.ZipFile(knwf_path, "r") as zf:
-        for file_name in zf.namelist():
+        file_names = zf.namelist()
+        for file_name in sorted(file_names):
             if file_name.endswith("workflow.knime"):
                 with zf.open(file_name) as f:
-                    return f.read().decode("utf-8")
+                    workflow_content = f.read().decode("utf-8")
+                    relative_file_name = _strip_common_archive_root(
+                        file_names, file_name
+                    )
+                    workflow_data.append((relative_file_name, workflow_content))
+
+    if len(workflow_data) == 1:
+        return workflow_data[0][1]
+
+    if workflow_data:
+        return "\n\n".join(
+            f"Workflow file: {file_name}\n{content}"
+            for file_name, content in workflow_data
+        )
+
     raise FileNotFoundError("workflow.knime not found in KNWF archive")
 
 
