@@ -112,7 +112,11 @@ def translate_knime_to_galaxy(
     hits = search_store_for_hits(description, vector_store)
     input_tools = load_galaxy_input_tools(input_workflow_path)
     task = build_task_prompt(
-        knime_nodes_str, workflow_content, summary_answer, hits, input_tools
+        knime_nodes_str,
+        workflow_content,
+        summary_answer,
+        input_tools=input_tools,
+        hits=hits,
     )
     full_prompt = f"{node_examples}\n\n{workflow_examples}\n\n{task}"
 
