@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="KNIME2Galaxy translates KNIME image-analysis workflows into Galaxy workflows."
+    />
+    <title>KNIME2Galaxy Workflow Translator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="KNIME2Galaxy home">
+        <span class="brand-mark" aria-hidden="true">K2G</span>
+        <span>KNIME2Galaxy</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#workflow">How it works</a>
+        <a href="#resources">Resources</a>
+        <a
+          class="github-link"
+          href="https://github.com/rmassei/imaging_KNIME_to_Galaxy"
+          >View on GitHub</a
+        >
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="eyebrow">Workflow translation for bioimaging</p>
+          <h1 id="hero-title">KNIME2Galaxy Workflow Translator</h1>
+          <p class="intro">
+            Convert KNIME workflows into valid Galaxy workflows using
+            embedding-based tool retrieval and LLM-guided reconstruction.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button primary"
+              href="https://github.com/rmassei/imaging_KNIME_to_Galaxy#installation"
+              >Get started</a
+            >
+            <a
+              class="button secondary"
+              href="https://github.com/rmassei/imaging_KNIME_to_Galaxy/tree/main/notebooks"
+              >Explore notebooks</a
+            >
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img
+            src="assets/knime2galaxy_scheme.png"
+            alt="Pipeline showing a KNIME workflow translated into a Galaxy workflow"
+            width="1920"
+            height="1080"
+          />
+        </div>
+      </section>
+
+      <section class="workflow" id="workflow" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <p class="eyebrow">From one ecosystem to another</p>
+          <h2 id="workflow-title">How the translator works</h2>
+          <p>
+            The translator combines workflow structure, Galaxy tool metadata,
+            and model-guided matching to produce an importable Galaxy workflow.
+          </p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-number">01</span>
+            <h3>Read the workflow</h3>
+            <p>
+              Unpack the KNIME archive and inspect its nodes, including nested
+              subnodes.
+            </p>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <h3>Match Galaxy tools</h3>
+            <p>
+              Retrieve suitable Galaxy tools from metadata using semantic
+              similarity.
+            </p>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <h3>Build and validate</h3>
+            <p>
+              Reconstruct the workflow as a Galaxy <code>.ga</code> file ready
+              for validation and import.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="resources" id="resources" aria-labelledby="resources-title">
+        <div>
+          <p class="eyebrow">Continue exploring</p>
+          <h2 id="resources-title">Project resources</h2>
+        </div>
+        <div class="resource-links">
+          <a href="https://github.com/rmassei/imaging_KNIME_to_Galaxy/blob/main/README.md">
+            <span>Documentation</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a href="https://github.com/rmassei/imaging_KNIME_to_Galaxy/tree/main/notebooks">
+            <span>Demo notebooks</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a href="https://github.com/rmassei/imaging_KNIME_to_Galaxy/tree/main/data/train_data_workflows">
+            <span>Example workflows</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>KNIME2Galaxy is an open-source workflow translation project.</p>
+      <a href="https://github.com/rmassei/imaging_KNIME_to_Galaxy/blob/main/LICENSE"
+        >License</a
+      >
+    </footer>
+  </body>
+</html>
