@@ -61,7 +61,7 @@ source .venv/bin/activate      # macOS/Linux
 Create a new environment:
 
 ```bash
-conda create -n knime2galaxy python=3.10
+conda create -n knime2galaxy python=3.11
 ```
 
 Activate the environment:
