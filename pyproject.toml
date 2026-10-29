@@ -7,7 +7,7 @@ name = "imaging-knime-to-galaxy"
 version = "0.1.0"
 description = "A python framework to convert KNIME workflows to Galaxy."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "jupyterlab",
     "openai",
@@ -26,6 +26,7 @@ dependencies = [
 [tool.uv]
 constraint-dependencies = [
     "cryptography<49; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "pillow>=13.0.0",
 ]
 
 required-environments = [
